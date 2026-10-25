@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Học Tiếng Việt lớp 1 cùng bạn máy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Học sinh lớp 1 tự học: chọn bài, đọc âm, vần, tiếng, từ; luyện thám tử chữ nhanh; đọc truyện theo 3 mức. Cùng họ màu và nhân vật với "Đọc cùng bạn máy". */
+:root{
+  --bg:#F3F5FB; --surface:#FFFFFF; --paper:#F8FAFF; --ink:#1B2F55; --ink2:#4B5D7E; --ink3:#6C7B99; --line:#D3DCEC;
+  --blue:#2F6FD6; --bluewash:#E3EDFD; --violet:#6F55CF; --violetwash:#ECE7FB;
+  --sun:#F4B41A; --sunwash:#FFF2CC; --green:#23935A; --greenwash:#DFF4E8; --red:#C8402B; --redwash:#FCE4DF;
+  --display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0E1731; --surface:#16233F; --paper:#1B2B4C; --ink:#E9EFFC; --ink2:#B2BFDA; --ink3:#8E9CBB; --line:#2D3E64;
+  --blue:#7BA6F4; --bluewash:#1F3560; --violet:#AE9BF3; --violetwash:#2B2650;
+  --sun:#F4B41A; --sunwash:#3B3217; --green:#54C58A; --greenwash:#173A2D; --red:#F28A77; --redwash:#40211C; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#0E1731; --surface:#16233F; --paper:#1B2B4C; --ink:#E9EFFC; --ink2:#B2BFDA; --ink3:#8E9CBB; --line:#2D3E64;
+  --blue:#7BA6F4; --bluewash:#1F3560; --violet:#AE9BF3; --violetwash:#2B2650;
+  --sun:#F4B41A; --sunwash:#3B3217; --green:#54C58A; --greenwash:#173A2D; --red:#F28A77; --redwash:#40211C; color-scheme:dark; }
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;-webkit-tap-highlight-color:transparent}
+button,select,input{font-family:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 56px}
+header.top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+header.top h1{font-family:var(--display);font-weight:800;font-size:clamp(19px,4.6vw,30px);line-height:1.1;margin:0;flex:1;min-width:0;text-wrap:balance}
+.stars{display:inline-flex;align-items:center;gap:6px;background:var(--sunwash);border:2px solid var(--sun);border-radius:999px;padding:4px 14px;font-family:var(--display);font-weight:800;font-size:20px;white-space:nowrap}
+.homebtn{border:2px solid var(--line);background:var(--surface);border-radius:999px;width:48px;height:48px;font-size:22px;line-height:1;padding:0}
+.homebtn[hidden]{display:none}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:clamp(14px,3vw,24px)}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* bạn máy và lời nói */
+.talk{display:flex;gap:12px;align-items:center}
+.talk .may{flex:none}
+.bubble{position:relative;flex:1;min-width:0;background:var(--sunwash);border:2px solid var(--sun);border-radius:18px;padding:12px 16px;font-family:var(--display);font-weight:600;font-size:clamp(19px,3.6vw,24px);line-height:1.35}
+.listen{flex:none;width:56px;height:56px;border-radius:50%;border:2px solid var(--blue);background:var(--surface);color:var(--blue);display:flex;align-items:center;justify-content:center}
+.listen svg,.say svg{width:26px;height:26px}
+body[data-talk="1"] .mouth{transform-origin:60px 62px;animation:talk .3s ease-in-out infinite alternate}
+body[data-talk="1"] .ant{transform-origin:60px 22px;animation:bob .6s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.6)}}
+@keyframes bob{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+
+/* trang chủ */
+.avatars{display:flex;flex-wrap:wrap;gap:8px}
+.avatars button{width:56px;height:56px;border-radius:16px;border:2.5px solid var(--line);background:var(--paper);font-size:30px;line-height:1}
+.avatars button[aria-pressed="true"]{border-color:var(--violet);background:var(--violetwash)}
+.field{display:flex;flex-direction:column;gap:6px;font-weight:700;color:var(--ink2);font-size:15px}
+.field input{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;font-size:20px;width:100%;max-width:340px}
+h2.sec{font-family:var(--display);font-size:24px;margin:6px 0 2px}
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px}
+.story-card{display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;background:var(--surface);border:2.5px solid var(--line);border-radius:20px;padding:16px;min-height:150px}
+.story-card:hover{border-color:var(--violet)}
+.story-card .em{font-size:46px;line-height:1}
+.story-card b{font-family:var(--display);font-size:24px;line-height:1.1}
+.story-card .meta{color:var(--ink2);font-size:15px}
+.story-card .best{margin-top:auto;font-weight:700;color:var(--sun);filter:saturate(1.2);font-size:18px;letter-spacing:.1em}
+.story-card .best i{font-style:normal;color:var(--ink3);font-size:14px;letter-spacing:0;margin-left:6px}
+details.card summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:20px}
+.btn{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 16px;font-weight:700;font-size:16px;min-height:48px}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.small{font-size:14px;color:var(--ink2)}
+.note{background:var(--sunwash);border:2px solid var(--sun);border-radius:14px;padding:10px 14px;font-size:15px}
+.note.bad{background:var(--redwash);border-color:var(--red)}
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.frow label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700;color:var(--ink2)}
+.frow select{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 10px;font-size:16px}
+.linkbtn{background:none;border:none;color:var(--blue);font-weight:700;text-decoration:underline;padding:0;font-size:inherit}
+
+/* các trạm */
+.steps{display:flex;gap:6px;margin-bottom:12px}
+.steps li{list-style:none;flex:1;min-width:0;text-align:center;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:6px 4px;font-family:var(--display);font-weight:700;font-size:clamp(12px,2.6vw,16px);line-height:1.15;color:var(--ink3)}
+.steps li b{display:block;font-size:clamp(18px,4vw,24px)}
+.steps li.cur{background:var(--blue);border-color:var(--blue);color:#fff}
+.steps li.done{background:var(--greenwash);border-color:var(--green);color:var(--green)}
+ol.steps{margin:0 0 12px;padding:0}
+.nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px}
+.big{border:none;background:var(--blue);color:#fff;border-radius:16px;padding:14px 26px;font-family:var(--display);font-weight:800;font-size:22px;min-height:58px}
+.big.alt{background:var(--surface);color:var(--blue);border:2.5px solid var(--blue)}
+.big:disabled{opacity:.4;cursor:not-allowed}
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.idea{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;min-height:170px;border-radius:20px;border:3px dashed var(--violet);background:var(--violetwash);padding:14px}
+.idea .q{font-family:var(--display);font-weight:800;font-size:58px;line-height:1;color:var(--violet)}
+.idea b{font-family:var(--display);font-size:24px}
+.idea .em{font-size:54px;line-height:1}
+.idea span.t{font-size:19px;font-weight:600}
+.idea.open{border-style:solid;border-color:var(--green);background:var(--greenwash)}
+.paper{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:clamp(14px,3vw,24px);font-size:clamp(26px,5.6vw,38px);line-height:1.75;font-family:var(--display);font-weight:600}
+.sent{margin:0 0 6px;transition:opacity .4s,transform .4s}
+.sent.hid{opacity:0;transform:translateY(8px)}
+.line{display:inline}
+.tok{display:inline-block;font:inherit;font-weight:inherit;background:none;border:2.5px solid transparent;border-radius:12px;padding:0 6px;margin:2px 1px;line-height:1.35;color:inherit}
+button.tok:hover{background:var(--violetwash)}
+.tok.pick{border-color:var(--violet);background:var(--violetwash)}
+.tok.ok{border-color:var(--green);background:var(--greenwash);cursor:default}
+.tok.reveal{border-color:var(--red);background:var(--redwash);cursor:default}
+.tok.blank{border:2.5px dashed var(--violet);background:var(--violetwash);color:var(--violet);min-width:3.2em;text-align:center}
+.tok.fixed{border-color:var(--green);background:var(--greenwash)}
+.tok.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.sentwrap{display:inline;border-radius:10px}
+.sentwrap.hint{background:var(--sunwash);outline:3px solid var(--sun);outline-offset:2px}
+.msg{min-height:1.5em;font-weight:600;font-size:18px;margin-top:12px}
+.whys{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.why{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:8px 12px;font-size:17px}
+.why b{font-family:var(--display);font-size:24px;background:var(--redwash);border:2px solid var(--red);border-radius:10px;padding:0 10px}
+.banner{background:var(--sunwash);border:2.5px solid var(--sun);border-radius:16px;padding:12px 18px;text-align:center;font-family:var(--display);font-weight:800;font-size:clamp(20px,4vw,26px);margin-top:14px}
+.opts{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.opt{min-width:120px;min-height:68px;border:3px solid var(--line);background:var(--surface);border-radius:18px;padding:8px 22px;font-family:var(--display);font-weight:800;font-size:32px}
+.opt:hover:not(:disabled){border-color:var(--violet)}
+.opt:disabled{opacity:.4;cursor:default}
+.opt.good{border-color:var(--green);background:var(--greenwash);opacity:1}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{flex:1;min-width:150px;border:3px solid var(--line);background:var(--surface);border-radius:16px;padding:10px;font-family:var(--display);font-weight:800;font-size:19px;line-height:1.15}
+.tabs button small{display:block;font-family:var(--body);font-weight:600;font-size:13px;color:var(--ink2)}
+.tabs button[aria-pressed="true"]{border-color:var(--violet);background:var(--violetwash)}
+.w{display:inline-block;border-radius:10px;padding:0 5px;margin:0 1px;transition:background .15s}
+.w.hl{background:var(--sun);color:#1B2F55}
+.w.dot{color:var(--ink3);padding:0 2px}
+.sayrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.say{display:inline-flex;align-items:center;gap:8px;border:2.5px solid var(--blue);background:var(--surface);color:var(--blue);border-radius:999px;padding:8px 20px;font-weight:800;font-size:18px;min-height:52px}
+.say.slow{border-color:var(--violet);color:var(--violet)}
+body[data-tts="0"] .sayrow{display:none}
+.qa{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px;margin-top:12px}
+.qa button{display:flex;flex-direction:column;align-items:center;gap:4px;border:3px solid var(--line);background:var(--surface);border-radius:18px;padding:14px 8px;font-family:var(--display);font-weight:700;font-size:22px}
+.qa button .em{font-size:44px;line-height:1}
+.qa button.good{border-color:var(--green);background:var(--greenwash)}
+.qa button:disabled:not(.good){opacity:.4}
+.done{text-align:center}
+.done .big-stars{font-size:clamp(40px,10vw,64px);letter-spacing:.1em;margin:8px 0}
+.done h2{font-family:var(--display);font-size:clamp(28px,6vw,40px);margin:8px 0}
+.rows{display:inline-flex;flex-direction:column;gap:6px;text-align:left;margin:10px 0 18px;font-size:19px}
+.pop{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+
+/* chọn bài học */
+.pathbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border:2.5px solid var(--violet);border-radius:20px;padding:14px 18px}
+.pathbtn:hover{background:var(--violetwash)}
+.pathbtn .em{font-size:46px;line-height:1}
+.pathbtn b{display:block;font-family:var(--display);font-size:clamp(22px,4.6vw,28px);line-height:1.15}
+.pathbtn .s{color:var(--ink2);font-size:16px}
+.pathbtn .go{margin-left:auto;font-family:var(--display);font-weight:800;font-size:34px;color:var(--violet)}
+.weeks{display:flex;flex-direction:column;gap:14px}
+.weeklab{font-family:var(--display);font-weight:700;font-size:15px;color:var(--ink3);margin:0 0 4px 2px}
+.row5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.lcell{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:72px;padding:6px 2px;border:2.5px solid var(--line);background:var(--paper);border-radius:16px;text-align:center}
+.lcell:hover{border-color:var(--violet)}
+.lcell .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:1}
+.lcell .t{font-size:clamp(10px,2.5vw,13px);line-height:1.15;color:var(--ink2);font-weight:600;max-width:100%;overflow:hidden;overflow-wrap:anywhere}
+.lcell .tag{position:absolute;top:-8px;right:-4px;font-size:18px;line-height:1}
+.lcell .got{font-size:11px;font-weight:700;color:var(--sun);filter:saturate(1.2)}
+.lcell.past{background:var(--greenwash);border-color:var(--green)}
+.lcell.rev{border-style:dashed}
+.lcell.cur{background:var(--violetwash);border:3.5px solid var(--violet)}
+.lcell.cur .n{color:var(--violet)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--display);font-weight:800;font-size:clamp(26px,6vw,36px);line-height:1.2;background:var(--violetwash);border:2.5px solid var(--violet);border-radius:14px;padding:2px 16px;color:var(--violet)}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.wcard{font-family:var(--display);font-weight:700;font-size:clamp(26px,5.6vw,34px);line-height:1.2;background:var(--paper);border:2.5px solid var(--line);border-radius:16px;padding:10px 6px;min-height:68px;transition:background .15s}
+.wcard:hover{border-color:var(--violet)}
+.wcard.hl{background:var(--sun);border-color:var(--sun);color:#1B2F55}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.acts{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.act{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;background:var(--surface);border:2.5px solid var(--line);border-radius:18px;padding:14px 16px;min-height:104px}
+.act:hover:not(:disabled){border-color:var(--violet)}
+.act:disabled{opacity:.5;cursor:not-allowed}
+.act .em{font-size:38px;line-height:1}
+.act b{font-family:var(--display);font-size:22px;line-height:1.15}
+.act small{color:var(--ink2);font-size:14px}
+.act .actstars{margin-top:auto;font-weight:700;color:var(--sun);filter:saturate(1.2);letter-spacing:.08em;font-size:16px}
+.act .actstars i{font-style:normal;color:var(--ink3);font-size:13px;letter-spacing:0;margin-left:6px}
+.nav.between{justify-content:space-between}
+/* thám tử chữ nhanh */
+.qdots{display:flex;gap:6px;margin:0;padding:0;list-style:none}
+.qdots li{flex:1;text-align:center;background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:4px 0;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink3)}
+.qdots li.cur{background:var(--blue);border-color:var(--blue);color:#fff}
+.qdots li.ok{background:var(--greenwash);border-color:var(--green);color:var(--green)}
+.qtiles{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:8px 0 4px}
+.qt{font-family:var(--display);font-weight:800;font-size:clamp(30px,8vw,48px);line-height:1.2;min-width:110px;min-height:84px;border:3px solid var(--line);background:var(--paper);border-radius:20px;padding:6px 18px;color:var(--ink)}
+.qt:hover:not(:disabled){border-color:var(--violet);background:var(--violetwash)}
+.qt:disabled{cursor:default}
+.qt.no{border-color:var(--red);background:var(--redwash);opacity:.7}
+.qt.ok{border-color:var(--green);background:var(--greenwash);opacity:1}
+.qt.reveal{border-color:var(--red);background:var(--redwash);opacity:1}
+.qt.shake{animation:shake .4s}
+.qt.word{font-size:clamp(24px,6vw,36px);min-width:150px}
+.qt.hl{background:var(--sun);border-color:var(--sun);color:#1B2F55}
+/* đọc âm, vần · tiếng · từ */
+.h3{font-family:var(--display);font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+.h3 .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;font-size:19px;flex:none}
+.h3sub{font-size:14px;color:var(--ink2);margin:0 0 12px}
+.units{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
+.ucard{background:var(--paper);border:2.5px solid var(--line);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.uhead{display:flex;align-items:center;gap:12px}
+.ubig{font-family:var(--display);font-weight:800;font-size:clamp(40px,9vw,56px);line-height:1.1;color:var(--violet);background:var(--surface);border:3px solid var(--violet);border-radius:16px;padding:4px 18px;min-width:88px;text-align:center}
+.ubig.hl{background:var(--sun);border-color:var(--sun);color:#1B2F55}
+.ukind{display:flex;flex-direction:column;font-weight:700;color:var(--ink2);font-size:15px;line-height:1.3}
+.ukind b{font-family:var(--display);font-size:20px;color:var(--ink)}
+.spell{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.splab{width:100%;font-size:13px;font-weight:700;color:var(--ink3)}
+.sp{font-family:var(--display);font-weight:700;font-size:clamp(22px,5vw,28px);line-height:1.2;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:2px 12px;min-height:44px;transition:background .15s}
+.sp small{font-family:var(--body);font-size:13px;font-weight:600;color:var(--ink2);margin-left:4px}
+.sp.res{border-color:var(--violet);color:var(--violet)}
+.sp.tone{font-size:18px;color:var(--ink2)}
+.sp.hl{background:var(--sun);border-color:var(--sun);color:#1B2F55}
+.sp.hl small{color:#1B2F55}
+.arr{color:var(--ink3);font-weight:800;font-size:20px}
+.ucard .sayrow{margin-top:0}
+.mk{color:var(--violet);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px}
+.wcard.hl .mk{color:#1B2F55}
+.wgrid.words{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.wcard .wem{display:block;font-size:34px;line-height:1.1;margin-bottom:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><span id="logo"></span><h1>Học Tiếng Việt lớp 1 cùng bạn máy</h1><span class="stars" title="Tổng số sao">⭐ <span id="starTotal">0</span></span><button class="homebtn" id="homeBtn" hidden aria-label="Về trang chủ" title="Về trang chủ">🏠</button></header>
+  <main id="main"></main>
+</div>
+<script>
+(function(){
+'use strict';
+
+// ===== Phân tích tiếng Việt và dữ liệu bài học (Tiếng Việt lớp 1 – NXB Giáo dục Việt Nam) =====
+const TONE_MARKS = { '̀': 'huyền', '́': 'sắc', '̉': 'hỏi', '̃': 'ngã', '̣': 'nặng' };
+const ONSETS = ['ngh','ng','nh','ch','kh','gh','gi','ph','th','tr','qu','b','c','d','đ','g','h','k','l','m','n','p','r','s','t','v','x'];
+
+// Thứ tự bài học theo phụ lục kế hoạch dạy học khối 1 (Bài 1–80, học kì I)
+const LESSONS = [
+  [1,'A a',['a']],[2,'B b, dấu huyền',['b','huyền']],[3,'C c, dấu sắc',['c','sắc']],[4,'E e Ê ê',['e','ê']],[5,'Ôn tập và kể chuyện',[]],
+  [6,'O o, dấu hỏi',['o','hỏi']],[7,'Ô ô, dấu nặng',['ô','nặng']],[8,'D d Đ đ',['d','đ']],[9,'Ơ ơ, dấu ngã',['ơ','ngã']],[10,'Ôn tập và kể chuyện',[]],
+  [11,'I i K k',['i','k']],[12,'H h L l',['h','l']],[13,'U u Ư ư',['u','ư']],[14,'Ch ch Kh kh',['ch','kh']],[15,'Ôn tập và kể chuyện',[]],
+  [16,'M m N n',['m','n']],[17,'G g Gi gi',['g','gi']],[18,'Gh gh Nh nh',['gh','nh']],[19,'Ng ng Ngh ngh',['ng','ngh']],[20,'Ôn tập và kể chuyện',[]],
+  [21,'R r S s',['r','s']],[22,'T t Tr tr',['t','tr']],[23,'Th th, ia',['th','ia']],[24,'ua ưa',['ua','ưa']],[25,'Ôn tập và kể chuyện',[]],
+  [26,'Ph ph Qu qu',['ph','qu']],[27,'V v X x',['v','x']],[28,'Y y',['y']],[29,'Luyện tập chính tả',[]],[30,'Ôn tập và kể chuyện',[]],
+  [31,'an ăn ân',['an','ăn','ân']],[32,'on ôn ơn',['on','ôn','ơn']],[33,'en ên in un',['en','ên','in','un']],[34,'am ăm âm',['am','ăm','âm']],[35,'Ôn tập và kể chuyện',[]],
+  [36,'om ôm ơm',['om','ôm','ơm']],[37,'em êm im um',['em','êm','im','um']],[38,'ai ay ây',['ai','ay','ây']],[39,'oi ôi ơi',['oi','ôi','ơi']],[40,'Ôn tập và kể chuyện',[]],
+  [41,'ui ưi',['ui','ưi']],[42,'ao eo',['ao','eo']],[43,'au âu êu',['au','âu','êu']],[44,'iu ưu',['iu','ưu']],[45,'Ôn tập và kể chuyện',[]],
+  [46,'ac ăc âc',['ac','ăc','âc']],[47,'oc ôc uc ưc',['oc','ôc','uc','ưc']],[48,'at ăt ât',['at','ăt','ât']],[49,'ot ôt ơt',['ot','ôt','ơt']],[50,'Ôn tập và kể chuyện',[]],
+  [51,'et êt it',['et','êt','it']],[52,'ut ưt',['ut','ưt']],[53,'ap ăp âp',['ap','ăp','âp']],[54,'op ôp ơp',['op','ôp','ơp']],[55,'Ôn tập và kể chuyện',[]],
+  [56,'ep êp ip up',['ep','êp','ip','up']],[57,'anh ênh inh',['anh','ênh','inh']],[58,'ach êch ich',['ach','êch','ich']],[59,'ang ăng âng',['ang','ăng','âng']],[60,'Ôn tập và kể chuyện',[]],
+  [61,'ong ông ung ưng',['ong','ông','ung','ưng']],[62,'iêc iên iêp',['iêc','iên','iêp']],[63,'iêng iêm yên',['iêng','iêm','yên']],[64,'iêt iêu yêu',['iêt','iêu','yêu']],[65,'Ôn tập và kể chuyện',[]],
+  [66,'uôi uôm',['uôi','uôm']],[67,'uôc uôt',['uôc','uôt']],[68,'uôn uông',['uôn','uông']],[69,'ươi ươu',['ươi','ươu']],[70,'Ôn tập và kể chuyện',[]],
+  [71,'ươc ươt',['ươc','ươt']],[72,'ươm ươp',['ươm','ươp']],[73,'ươn ương',['ươn','ương']],[74,'oa oe',['oa','oe']],[75,'Ôn tập và kể chuyện',[]],
+  [76,'oan oăn oat oăt',['oan','oăn','oat','oăt']],[77,'oai uê uy',['oai','uê','uy']],[78,'uân uât',['uân','uât']],[79,'uyên uyêt',['uyên','uyêt']],[80,'Ôn tập và kể chuyện',[]],
+].map(([n,t,u]) => ({ n, t, u }));
+
+const TONES = ['huyền','sắc','hỏi','ngã','nặng'];
+const UNIT_LESSON = {};
+LESSONS.forEach(l => l.u.forEach(u => { if (!(u in UNIT_LESSON)) UNIT_LESSON[u] = l.n; }));
+const isTone = u => TONES.includes(u);
+const lessonOf = n => LESSONS.find(l => l.n === n);
+
+function splitTone(word) {
+  let tone = null;
+  const base = word.normalize('NFD').replace(/[̣̀́̃̉]/g, m => { tone = TONE_MARKS[m]; return ''; }).normalize('NFC');
+  return { base, tone };
+}
+
+// Tách một tiếng thành âm đầu + vần + thanh
+function parseSyllable(raw) {
+  const w = raw.toLowerCase().replace(/[^a-zà-ỹđ]/g, '');
+  if (!w) return null;
+  const { base, tone } = splitTone(w);
+  let onset = '';
+  for (const o of ONSETS) {
+    if (base.startsWith(o) && base.length > o.length) { onset = o; break; }
+    if (o === 'gi' && base === 'gi') { onset = 'gi'; break; }
+  }
+  let rime = base.slice(onset.length);
+  if (onset === 'gi' && rime === '') rime = 'i';
+  return { word: w, onset, rime, tone };
+}
+
+// Kiểm tra một tiếng chỉ dùng chữ đã học đến bài N
+function checkSyllable(raw, N) {
+  const p = parseSyllable(raw);
+  if (!p) return { ok: true, skip: true };
+  const bad = [];
+  if (p.onset && !((UNIT_LESSON[p.onset] || 999) <= N)) bad.push(p.onset);
+  if (!((UNIT_LESSON[p.rime] || 999) <= N)) bad.push(p.rime || '?');
+  if (p.tone && !((UNIT_LESSON[p.tone] || 999) <= N)) bad.push('dấu ' + p.tone);
+  return { ...p, ok: bad.length === 0, bad };
+}
+const syllables = text => text.split(/[\s,.!?;:·…"“”()\-–]+/).filter(Boolean);
+function checkText(text, N) {
+  return syllables(text).map(s => ({ s, ...checkSyllable(s, N) }));
+}
+// Các đơn vị (âm, vần) mà một văn bản luyện, giới hạn trong danh sách cho trước
+function unitsIn(text) {
+  const set = new Set();
+  syllables(text).forEach(s => { const p = parseSyllable(s); if (p) { if (p.onset) set.add(p.onset); if (p.rime) set.add(p.rime); } });
+  return [...set];
+}
+
+
+// Truyện ngắn của từng bài: [tên truyện, nội dung, câu hỏi, các lựa chọn [chữ, hình], vị trí đáp án đúng]
+const LESSON_STORIES = {
+  4: ['Bà bế bé', 'Bà bế bé. Bé ê a. Bé cà bê bé.', 'Bà bế ai?', [['bé', '👶'], ['bê', '🐄'], ['cá', '🐟']], 0],
+  5: ['Bé, bà', 'Bà bế bé. Bé ê a. Bà ca, bé cà bà.', 'Ai bế bé?', [['bà', '👵'], ['bê', '🐄'], ['cá', '🐟']], 0],
+  6: ['Bó cỏ', 'Bé có bó cỏ. Bò có cỏ. Bò bé có cỏ.', 'Bé có gì?', [['bó cỏ', '🌿'], ['cá', '🐟'], ['bê', '🐄']], 0],
+  7: ['Bố có bò', 'Bố có bò. Bò có cỏ. Bố bế bé. Bé có bố.', 'Bố có gì?', [['bò', '🐄'], ['cá', '🐟'], ['cọ', '🌴']], 0],
+  8: ['Ô đỏ', 'Bé có ô đỏ. Bố có đò. Bà bế bé. Bé có dê.', 'Bé có gì?', [['ô đỏ', '☂️'], ['đá', '🪨'], ['cá', '🐟']], 0],
+  9: ['Cờ đỏ', 'Bé có cờ đỏ. Bố đỡ bé ở bờ đê. Bé bế cờ.', 'Bé có gì?', [['cờ đỏ', '🚩'], ['cá', '🐟'], ['bò', '🐄']], 0],
+  10: ['Ở bờ đê', 'Bé ở bờ đê. Bố có đò. Bà có cá. Bé có cờ đỏ.', 'Bà có gì?', [['cá', '🐟'], ['cờ', '🚩'], ['đò', '🛶']], 0],
+  11: ['Bé kẻ ô', 'Bé có bi. Bé kẻ ô. Dì đi đò. Bé kể dì đi đò.', 'Dì đi gì?', [['đi đò', '🛶'], ['đi bộ', '🚶'], ['bế bé', '👶']], 0],
+  12: ['Bờ hồ', 'Hè, bé đi bờ hồ. Hồ có cá. Bé có lá đỏ. Bé lo bà đi bộ.', 'Hồ có gì?', [['cá', '🐟'], ['hổ', '🐯'], ['lê', '🍐']], 0],
+  13: ['Đu đủ', 'Bà có đu đủ. Bố có hũ bơ. Bé có đủ cả. Bé cử bà.', 'Bà có gì?', [['đu đủ', '🥭'], ['củ', '🥔'], ['cá', '🐟']], 0],
+  14: ['Chị Kha đi chợ', 'Chị Kha đi chợ. Chị có cá khô, có khế. Chị cho bé khế.', 'Chị Kha đi đâu?', [['đi chợ', '🏪'], ['bờ hồ', '🏞️'], ['đi đò', '🛶']], 0],
+  15: ['Bé chờ bà', 'Bà đi chợ. Bà có cá, có khế, có đu đủ. Bé chờ bà. Bé đỡ đồ cho bà.', 'Bà đi đâu?', [['đi chợ', '🏪'], ['bờ hồ', '🏞️'], ['đi đò', '🛶']], 0],
+  16: ['Mũ đỏ', 'Mẹ cho bé mũ đỏ. Bé có nơ. Mẹ chở bé đi chợ. Bé đi chợ có mũ.', 'Mẹ cho bé gì?', [['mũ đỏ', '👒'], ['cá mè', '🐟'], ['nơ đỏ', '🎀']], 0],
+  17: ['Bé giữ giỏ', 'Bà có gà mẹ, gà bé. Bà đi chợ. Bé giữ giỏ cho bà.', 'Bé giữ gì cho bà?', [['giỏ', '🧺'], ['gà', '🐔'], ['mũ', '👒']], 0],
+  18: ['Nhà bà', 'Nhà bà nhỏ, có ghế gỗ. Bé nhớ bà. Bé ghé nhà bà.', 'Nhà bà có gì?', [['ghế gỗ', '🪑'], ['hồ cá', '🐠'], ['đò', '🛶']], 0],
+  19: ['Nghỉ hè', 'Nghỉ hè, bé ở nhà bà. Ngõ nhỏ có nghé. Bé nghe bà kể. Bé ngủ đủ giờ.', 'Nghỉ hè, bé ở đâu?', [['nhà bà', '🏡'], ['đi chợ', '🏪'], ['bờ hồ', '🏞️']], 0],
+  20: ['Nhà dì Nga', 'Bé Na ghé nhà dì Nga. Nhà dì có gà, có nghé. Dì cho bé giỏ ngô. Bé dạ dì.', 'Dì cho bé gì?', [['giỏ ngô', '🌽'], ['ghế', '🪑'], ['mũ', '👒']], 0],
+  21: ['Rổ cá', 'Mẹ đi chợ, mẹ có rổ cá. Bé ra đỡ rổ cho mẹ. Chú sẻ nhỏ ở ngõ.', 'Bé đỡ gì cho mẹ?', [['rổ cá', '🧺'], ['sổ', '📓'], ['ghế', '🪑']], 0],
+  22: ['Tổ sẻ', 'Nhà bà có tre to. Sẻ có tổ ở tre. Bé chớ bẻ tre, sẻ sợ.', 'Sẻ có tổ ở đâu?', [['ở tre', '🎋'], ['ở hồ', '🏞️'], ['ở chợ', '🏪']], 0],
+  23: ['Bé chia mía', 'Bà cho bé mía. Bé chia cho chị Thu, chia cho bé Thơ. Cả nhà đủ mía.', 'Bé chia mía cho ai?', [['chị Thu', '👧'], ['thỏ', '🐰'], ['sẻ', '🐦']], 0],
+  24: ['Trưa mưa to', 'Trưa, mưa to. Mẹ đi chợ mua cua, mua dưa. Bé ra mở cửa cho mẹ.', 'Mẹ mua gì?', [['cua', '🦀'], ['gà', '🐔'], ['ghế', '🪑']], 0],
+  25: ['Bé tự rửa đũa', 'Trưa hè, bé Thơ ở nhà. Bé tự rửa đũa, rửa đĩa. Mẹ nhờ bé ra mở cửa.', 'Bé Thơ tự rửa gì?', [['đũa', '🥢'], ['cửa', '🚪'], ['cá', '🐟']], 0],
+  26: ['Quà cho bà', 'Nhà bé ở phố. Nghỉ hè, bố mẹ cho bé ra quê. Bé có quà cho bà: quả lê, quả na.', 'Bé có quà gì cho bà?', [['quả lê', '🍐'], ['phở', '🍜'], ['quạ', '🐦']], 0],
+  27: ['Vở vẽ', 'Bé có vở vẽ. Bé vẽ xe, vẽ nhà, vẽ bà và mẹ. Bé giữ vở, chớ xé vở.', 'Bé vẽ gì?', [['xe', '🚗'], ['cá', '🐟'], ['quạ', '🐦']], 0],
+  28: ['Dì là y tá', 'Dì Kha là y tá. Bé quý dì. Dì chỉ bé: ra phố, bé đi ở lề, chú ý xe.', 'Dì Kha là gì?', [['y tá', '👩‍⚕️'], ['thợ mỏ', '⛏️'], ['bà', '👵']], 0],
+  29: ['Bé ghi nhớ', 'Bé kể: nhà bé có ghế gỗ, có kì đà, có nghé. Bé ghi: cá, kẻ, gà, ghế, ngô, nghé.', 'Tiếng nào viết đúng?', [['gế', '🪑'], ['ghế', '🪑'], ['ngế', '🪑']], 1],
+  31: ['Bạn thân', 'Ân có bạn thân là Lan. Ra sân, Lan bị ngã. Ân đỡ Lan, dỗ Lan. Lan có na, Lan chia cho Ân ăn. Bạn thân là thế.', 'Lan bị ngã, ai đỡ Lan?', [['bạn Ân', '🧒'], ['bà', '👵'], ['chó', '🐕']], 0],
+  32: ['Bé Sơn ôn chữ', 'Bé Sơn ở thôn. Sơn ôn chữ ở nhà. Mẹ đi chợ về, mẹ có nón lá. Sơn đỡ nón cho mẹ.', 'Sơn ôn gì ở nhà?', [['ôn chữ', '📖'], ['ngủ', '😴'], ['đi chợ', '🏪']], 0],
+  33: ['Bé Tín vun cỏ', 'Bé Tín ở bên bà. Bà có na chín. Tín vun cỏ cho bà. Bà khen Tín.', 'Bé Tín làm gì?', [['vun cỏ', '🌱'], ['đi chợ', '🏪'], ['ăn bún', '🍜']], 0],
+  34: ['Tâm thăm bà', 'Bé Tâm đi thăm bà. Tâm có quà: ba quả cam. Tâm chăm chỉ, bà khen Tâm.', 'Tâm có quà gì cho bà?', [['quả cam', '🍊'], ['nấm', '🍄'], ['nến', '🕯️']], 0],
+  35: ['Hồ sen ở thôn', 'Thôn bé có hồ sen to. Hè về, sen nở đỏ cả hồ. Bé và bạn Na ra hồ ngắm sen. Bé nhủ bạn chớ bẻ sen.', 'Ở thôn có hồ gì?', [['hồ sen', '🪷'], ['hồ cá', '🐟'], ['hồ đá', '🪨']], 0],
+  36: ['Mâm cơm', 'Mâm cơm nhà bé thơm. Có tôm, có cá kho. Bé ăn no, bé gom đũa cho mẹ.', 'Mâm cơm có gì?', [['tôm, cá', '🦐'], ['chè', '🍮'], ['bún', '🍜']], 0],
+  37: ['Em ngủ', 'Bé có em nhỏ. Đêm, mẹ ru em. Bé nằm im cho em ngủ êm. Bé trùm chăn cho em.', 'Đêm, bé làm gì cho em ngủ?', [['nằm im', '🤫'], ['ăn kem', '🍦'], ['đi chợ', '🏪']], 0],
+  38: ['Hai bàn tay', 'Bé có hai bàn tay. Tay bé vẽ máy bay, vẽ cây. Ăn cơm, bé nhớ rửa tay.', 'Ăn cơm, bé nhớ làm gì?', [['rửa tay', '🧼'], ['vẽ cây', '🌳'], ['chạy', '🏃']], 0],
+  39: ['Đi bơi', 'Bé ngồi bên mẹ. Bé nói: bé đi bơi nhé! Mẹ dặn: bé chỉ đi bơi khi có bố mẹ.', 'Bé đi bơi khi có ai?', [['bố mẹ', '👪'], ['bạn nhỏ', '🧒'], ['chó', '🐕']], 0],
+  40: ['Cây ở đồi', 'Nhà bé ở gần đồi. Trên đồi có hai cây to. Chim sẻ làm tổ ở cây. Hè về, bé và bố ra đồi vun cây. Bé nhủ: chớ bẻ cây, chớ bắn chim.', 'Bé và bố làm gì?', [['vun cây', '🌳'], ['đi bơi', '🏊'], ['ăn cơm', '🍚']], 0],
+  41: ['Đi núi', 'Bố cho bé đi núi. Bé vui lắm, bé ngửi mùi cỏ thơm. Bé có túi nhỏ. Ăn na, bé bỏ vỏ ở túi, chớ bỏ ở núi.', 'Bé bỏ vỏ na ở đâu?', [['ở túi', '👜'], ['ở núi', '⛰️'], ['ở hồ', '🏞️']], 0],
+  42: ['Mèo leo cây', 'Ra ngõ, bé chào bà, chào chú. Mèo nhà bé leo cây cao. Bé chớ trèo theo mèo nhé.', 'Bé chớ làm gì?', [['trèo cây', '🌳'], ['chào bà', '👵'], ['ăn táo', '🍎']], 0],
+  43: ['Ăn rau', 'Mẹ nấu rau cho cả nhà. Bé ăn rau, ăn cá. Bé ăn chậm, nhai kĩ. Bé kêu: rau ngon lắm!', 'Mẹ nấu gì?', [['rau', '🥬'], ['kem', '🍦'], ['táo', '🍎']], 0],
+  44: ['Chú cừu nhỏ', 'Nhà bà có chú cừu nhỏ. Cừu ăn cỏ. Bé chịu khó cho cừu ăn cỏ.', 'Bé cho cừu ăn gì?', [['cỏ', '🌿'], ['cá', '🐟'], ['kem', '🍦']], 0],
+  45: ['Trâu của bà', 'Nhà bà ở chân núi. Bà có hai con trâu và ba con cừu. Sớm mai, bé dẫn trâu ra đồi gặm cỏ. Bé gom lá khô về để bà ủ cho rau.', 'Trâu ăn gì?', [['cỏ', '🌿'], ['cá', '🐟'], ['kem', '🍦']], 0],
+  46: ['Bỏ rác', 'Bác Lạc ở gần nhà bé. Bác nhắc các bé: bỏ rác ở xô rác. Bé nhớ lời bác. Bác cho bé quả gấc.', 'Bác Lạc nhắc bé gì?', [['bỏ rác ở xô', '🗑️'], ['mặc áo', '👕'], ['ăn gấc', '🍈']], 0],
+  47: ['Bé học đọc', 'Bé thức dậy sớm. Bé học đọc, học chữ. Về nhà, bé đọc cho bà. Bà cho bé cốc sữa. Bà chúc bé học giỏi.', 'Bé đọc cho ai nghe?', [['bà', '👵'], ['sóc', '🐿️'], ['ốc', '🐌']], 0],
+  48: ['Bãi cát', 'Hè, cả nhà ra bãi cát. Bé đội mũ cho mát. Bé xây lâu đài cát thật to. Bé chớ để cát bay vào mắt.', 'Bé chớ để cát bay vào đâu?', [['mắt', '👀'], ['mũ', '👒'], ['chân', '🦶']], 0],
+  49: ['Bé rót trà', 'Chim hót ở cây. Bé rót trà cho bà. Bà khen: bé tốt lắm. Bà cho bé xem quả ớt đỏ.', 'Bé rót trà cho ai?', [['bà', '👵'], ['chim', '🐦'], ['bạn', '🧒']], 0],
+  50: ['Ngọc học hát', 'Bé Ngọc học hát. Ngọc hát cho bà, cho mẹ nghe. Cả nhà vỗ tay. Ngọc vui lắm.', 'Ngọc làm gì?', [['hát', '🎤'], ['khóc', '😢'], ['ngủ', '😴']], 0],
+  51: ['Tết ở quê', 'Tết, cả nhà bé về quê. Nhà bà có đàn vịt, có cây mít, có con két. Bé chúc tết bà, bà vui lắm.', 'Tết, bé về đâu?', [['về quê', '🏡'], ['ra phố', '🏙️'], ['đi núi', '⛰️']], 0],
+  52: ['Bút mới', 'Mẹ mua cho bé cái bút mới. Bé giữ bút cẩn thận, chớ để rơi. Bé vẽ mứt tết.', 'Mẹ mua cho bé gì?', [['bút', '✏️'], ['mũ', '👒'], ['cá', '🐟']], 0],
+  53: ['Tập đi xe đạp', 'Bố dạy bé tập đi xe đạp. Bé ngã, bố đỡ bé. Bé chăm tập, bé đạp xe giỏi. Bố cho bé ăn bắp.', 'Bố dạy bé tập gì?', [['đi xe đạp', '🚲'], ['bơi', '🏊'], ['hát', '🎤']], 0],
+  54: ['Góp quà', 'Lớp bé góp quà cho các bạn ở xa. Bé góp một hộp bút. Cả lớp vui lắm.', 'Bé góp gì?', [['hộp bút', '✏️'], ['mũ', '👒'], ['cá', '🐟']], 0],
+  55: ['Tập bơi', 'Hè, bé đi tập bơi. Bé gặp bạn cũ ở lớp. Hai bạn chỉ tập bơi khi có chú dạy bơi.', 'Hai bạn tập bơi khi có ai?', [['chú dạy bơi', '🏊'], ['bạn nhỏ', '🧒'], ['mèo', '🐈']], 0],
+  56: ['Xếp dép', 'Bé giúp mẹ xếp dép ở cửa. Bé xếp dép đẹp, mẹ khen bé. Mẹ đi làm kịp giờ.', 'Bé giúp mẹ xếp gì?', [['dép', '🩴'], ['búp bê', '🪆'], ['bếp', '🍳']], 0],
+  57: ['Anh Minh', 'Anh của bé là anh Minh. Anh Minh vẽ tranh cây xanh bên kênh. Anh dạy bé vẽ. Hai anh em thân lắm.', 'Anh Minh vẽ gì?', [['tranh cây xanh', '🖼️'], ['con chim', '🐦'], ['quả chanh', '🍋']], 0],
+  58: ['Bé thích sách', 'Bé thích đọc sách. Bé có sách về chú ếch. Bé giữ sách sạch sẽ. Đọc rồi, bé xếp sách lên giá.', 'Bé thích gì?', [['đọc sách', '📚'], ['bắt ếch', '🐸'], ['ăn kem', '🍦']], 0],
+  59: ['Sáng sớm', 'Sáng, bé đánh răng, rửa mặt. Nắng vàng ở sân. Bé vâng lời mẹ, ăn sáng no.', 'Sáng, bé làm gì?', [['đánh răng', '🪥'], ['ngủ', '😴'], ['chạy', '🏃']], 0],
+  60: ['Đêm rằm', 'Đêm rằm, trăng sáng. Bé và các bạn ở làng chơi ở sân. Bé ngắm trăng. Bé nhớ về nhà sớm.', 'Đêm rằm có gì?', [['trăng sáng', '🌕'], ['mưa to', '🌧️'], ['nắng', '☀️']], 0],
+  61: ['Trồng cây cùng ông', 'Ông bé trồng cây ở sân. Bé cùng ông trồng cây. Trồng xong, bé rửa tay. Ông mừng, ông khen bé.', 'Bé cùng ông làm gì?', [['trồng cây', '🌱'], ['đá bóng', '⚽'], ['ra sông', '🏞️']], 0],
+  62: ['Cô giáo hiền', 'Cô giáo của bé hiền lắm. Cô dạy bé làm việc tốt. Bé giúp bạn, bé nhặt rác ở sân. Bé sẽ tiếp tục làm việc tốt.', 'Cô dạy bé gì?', [['làm việc tốt', '⭐'], ['xem xiếc', '🎪'], ['ra biển', '🌊']], 0],
+  63: ['Bé đi tiêm', 'Mẹ đưa bé đi tiêm. Bé ngồi yên, chẳng khóc tiếng nào. Cô y tá khen bé giỏi.', 'Đi tiêm, bé làm gì?', [['ngồi yên', '🪑'], ['khóc', '😢'], ['chạy', '🏃']], 0],
+  64: ['Thả diều', 'Bé yêu bố mẹ nhiều. Chiều, bố cho bé ra đồi thả diều. Bé viết: bé yêu bố.', 'Chiều, bé làm gì?', [['thả diều', '🪁'], ['đi bơi', '🏊'], ['ngủ', '😴']], 0],
+  65: ['Bé yêu lớp', 'Ở lớp, bé chăm viết, chăm đọc. Cô khen: bé viết đẹp, đọc to. Bé yêu lớp, yêu cô.', 'Cô khen bé gì?', [['viết đẹp', '✍️'], ['chạy nhanh', '🏃'], ['hát hay', '🎤']], 0],
+  66: ['Nuôi gà', 'Nhà bé nuôi đàn gà. Buổi sáng, bé cho gà ăn. Bé thích ăn chuối, mẹ cho bé một quả chuối. Chiều, bé vẽ cánh buồm.', 'Nhà bé nuôi gì?', [['gà', '🐔'], ['cá', '🐟'], ['mèo', '🐈']], 0],
+  67: ['Bé bị ốm', 'Bé bị ốm. Mẹ đưa bé đi khám. Bé nhớ: chỉ dùng thuốc khi bố mẹ cho. Mẹ ở bên bé suốt.', 'Bé dùng thuốc khi nào?', [['khi bố mẹ cho', '👪'], ['khi bé thích', '🍬'], ['khi bạn cho', '🧒']], 0],
+  68: ['Chuông reo', 'Chuông reo, cả lớp xếp hàng xuống sân. Bé luôn đi chậm, chớ xô bạn.', 'Chuông reo, cả lớp làm gì?', [['xếp hàng', '🚶'], ['ngủ', '😴'], ['ăn cơm', '🍚']], 0],
+  69: ['Bé tưới cây', 'Chiều, bé tưới cây ở sân. Cây tươi, bé cười. Bé chăm chỉ, chẳng lười. Tối, bé xem tranh con hươu.', 'Bé tưới gì?', [['cây', '🌳'], ['cá', '🐟'], ['mèo', '🐈']], 0],
+  70: ['Quả bưởi', 'Bà cho bé mười quả bưởi. Bé chia bưởi cho cả nhà. Mọi người cùng vui.', 'Bé chia bưởi cho ai?', [['cả nhà', '👪'], ['chó', '🐕'], ['hươu', '🦌']], 0],
+  71: ['Trời mưa', 'Trời mưa, bé che ô cho khỏi ướt. Bé bước chậm, chớ chạy kẻo ngã. Về nhà, bé uống nước ấm.', 'Trời mưa, bé làm gì?', [['che ô', '☂️'], ['chạy nhanh', '🏃'], ['tắm mưa', '🌧️']], 0],
+  72: ['Giàn mướp', 'Nhà bà có giàn mướp. Bướm bay ở giàn mướp. Bé ngắm bướm, chẳng bắt bướm.', 'Bé làm gì?', [['ngắm bướm', '🦋'], ['bắt bướm', '🥅'], ['hái mướp', '🥒']], 0],
+  73: ['Đường tới trường', 'Bé đi trên đường tới trường. Bé đi ở lề đường, qua vườn rau. Qua đường, bé nắm tay mẹ.', 'Qua đường, bé làm gì?', [['nắm tay mẹ', '🤝'], ['chạy nhanh', '🏃'], ['đi một mình', '🚶']], 0],
+  74: ['Tập thể dục', 'Sáng, bé tập thể dục cho khỏe. Vườn nhà có hoa. Bé ngắm hoa, chẳng hái hoa.', 'Bé tập thể dục để làm gì?', [['cho khỏe', '💪'], ['hái hoa', '🌸'], ['đi ngủ', '😴']], 0],
+  75: ['Vườn hoa ở trường', 'Bé đi học ở trường. Trường có vườn hoa. Bé tưới hoa cùng các bạn. Bé yêu trường lắm.', 'Trường của bé có gì?', [['vườn hoa', '🌷'], ['hồ cá', '🐠'], ['núi', '⛰️']], 0],
+  76: ['Bé ngoan', 'Bé Hoa tóc xoăn, ngoan, chăm học toán. Bé thích xem hoạt hình. Bé chỉ xem một lúc rồi đi ngủ. Chú mèo loắt choắt nằm bên bé.', 'Bé xem hoạt hình bao lâu?', [['một lúc', '⏱️'], ['cả ngày', '📺'], ['cả đêm', '🌙']], 0],
+  77: ['Khuy áo', 'Bà cho bé khoai, cho bé xoài. Bé tự cài khuy áo. Bà khen bé giỏi. Bà có hoa huệ thơm.', 'Bé tự làm gì?', [['cài khuy áo', '👕'], ['nấu khoai', '🍠'], ['hái xoài', '🥭']], 0],
+  78: ['Mùa xuân', 'Mùa xuân về, cây ra lá non. Mỗi tuần, bé học mĩ thuật. Bé vẽ mùa xuân.', 'Bé vẽ gì?', [['mùa xuân', '🌸'], ['mùa đông', '❄️'], ['con tàu', '🚢']], 0],
+  79: ['Bà kể chuyện', 'Tối, bà kể chuyện cho bé. Bà khuyên bé chăm học. Bé có quyển truyện mới, kể về bông tuyết.', 'Bà khuyên bé gì?', [['chăm học', '📚'], ['ngủ muộn', '🌙'], ['xem hoạt hình', '📺']], 0],
+  80: ['Đi thuyền', 'Mùa xuân, bé cùng bố mẹ đi thuyền ngắm hoa. Bé ngoan, ngồi yên trên thuyền. Về nhà, bé luyện đọc truyện cho cả nhà nghe.', 'Ở trên thuyền, bé làm gì?', [['ngồi yên', '🪑'], ['chạy nhảy', '🏃'], ['bơi', '🏊']], 0],
+};
+const STORIES = {};
+Object.entries(LESSON_STORIES).forEach(([k, v]) => { STORIES[+k] = { title: v[0], l3: v[1], q: v[2], opts: v[3], a: v[4] }; });
+// Bài 30 giữ ba mức viết tay
+STORIES[30] = { title: 'Hè về quê',
+  l1: 'bà · quê · hồ cá · bờ hồ · vỏ quả · xe. Bé về quê.',
+  l2: 'Nhà bà ở quê. Quê có hồ to. Bé chớ đổ vỏ quả ra hồ.',
+  l3: 'Hè về, bé Hà đi xe về quê. Nhà bà ở quê có hồ cá to. Bé và chị Kha nhổ cỏ ở bờ hồ. Bé chú ý chớ đổ vỏ quả ra hồ.',
+  q: 'Bé Hà về đâu?', opts: [['về quê','🏡'],['đi phố','🏙️'],['đi đò','🛶']], a: 0 };
+const storyEmoji = sid => STORIES[sid].opts[STORIES[sid].a][1];
+
+
+// ================= Kho tiếng để tạo bài luyện cho mọi bài =================
+// Mỗi tiếng được tự phân loại theo bài bằng bộ lọc chữ đã học: "max" là bài cuối cùng em cần học để đọc được tiếng đó.
+const BANK_SRC = `
+a e ê o ô i u ư ba bà bá ca cà cá be bé bè bê bế
+bò bó cò có cỏ bỏ cô bô bộ bố cố cọ bọ bạ bệ cộ
+da dạ dê dế đa đá đò đỏ đổ đô độ đê bờ cờ bơ bã đã cỡ cỗ dỗ đỡ
+bi bì bí đi dì kẻ kể kế kê kè ki kì kẽ
+hà hạ hè hẹ hi hí hổ hồ hô hơ la lá là lạ lê lề lễ lì lí lọ lộ lờ lỡ
+cu củ cũ cụ bù bụ hũ lũ dư dự dữ đủ đu hư cư ừ ủ bự
+cha chả chà chợ chị chè chó chỗ chú chữ chủ chê chi chờ khá khế khỉ khô khó khi khờ khu
+ma má mà mạ mẹ mê mì mơ mỡ mô mổ mộ mũ na ná nà né nè nỉ nó nô nơ nữ nụ
+ga gà gỗ gờ gụ giá già giả giỗ giờ giữ giò giỏ gió gì gieo
+ghe ghé ghế ghi ghẻ ghẹ nha nhà nhả nhẹ nhé nhè nhỉ nhỏ nhổ nhớ nhỡ nhờ nhô nhí
+nga ngà ngả ngã ngõ ngó ngô ngờ ngủ ngư nghe nghé nghề nghệ nghỉ nghĩ ngỡ
+ra rạ rễ rổ rô rủ sa sả sẻ sổ số sở sợ sờ sư sứ sử sá
+ta tà tả tá tạ tê tế tè tỉ tí tô tố tổ tơ tờ từ tư tứ tử tụ tu tra trà trả trá tre trê trễ tri trò trỏ trổ trơ trụ
+tha thà thả thế thể thi thì thị thơ thờ thở thô thổ thỏ thợ thu thư thứ thử thủ bia kia mía tía đĩa chia
+cua mua múa mùa thua lúa lụa lừa lửa mưa đưa đũa dưa dừa cưa cửa của chùa rùa rửa sữa thưa trưa nữa ngựa chưa khua
+pha phà phá phả phố phở phi phí phù phú phủ phụ phê quê qua quá quà quả quạ quế quở
+va và vá vả vè vẽ vẹ ví vì vị vô vỗ vở vợ vờ vũ vụ vua xa xà xả xá xe xẻ xế xi xì xô xổ xơ xu xù xử xứ xưa
+y ý
+an ăn bàn bạn bán cân cần chân chăn đàn dân gần khăn lan lăn mận nặn rắn sân thân vân vạn dán hẳn
+on ôn ơn bon bón con cơn chôn đón đồn hơn hòn khôn lon món nón non ngon sơn thon tôn tròn trơn
+en bên đen đèn kèn len lên nên nến ren sên tên then trên xen chín in kín nín tin xin bún cún lùn thun vun
+am ăm cam cầm chăm đậm đầm bám cám dám gầm khám làm lắm lăm mâm mầm nằm nấm năm ngâm rằm sâm tám tắm tầm thăm trăm
+om ôm bom bơm cơm đốm gom hôm tôm thơm
+em êm đem đêm kem nem thêm xem im chim kim lim nhím sim tim um chùm cúm sum
+ai ay bài bay bảy cài cây cày chạy hai hay hãy lái lại may máy mái mãi nay này ngày nhảy sai sấy tai tay thay thấy trai vai vay vậy xay xây đài đây đầy dạy dài gậy gai gầy khay lấy mấy nhai
+oi ôi ơi bơi cối chơi chổi đôi đói đổi hỏi hơi hôi lội lối lời mới môi mồi mỏi nói nồi nổi ngồi ngói rơi rồi roi soi sói tôi tối tới thỏi thổi trôi trời vôi với vòi xôi gối gỏi giỏi giới
+ui bụi bùi cúi chui đùi gửi lùi mùi múi mũi ngửi tủi túi vui vùi xúi xui
+ao eo bao báo bào cao cáo chào cháo đào dao giáo lao lão mào nào sao sáo táo tháo trao vào beo béo chèo đèo dẻo kéo khéo leo mèo méo reo teo treo veo xéo
+au âu cau cháu đau màu mau sau sáu tàu rau cầu câu dâu đầu hầu lầu nấu sâu trâu nâu bầu kêu nghêu lều rêu trêu nêu thêu mếu đều nếu
+iu ưu chịu dịu địu lưu hưu mưu sưu
+các bác bạc gác hạc khác lạc nhạc rác sạc tác thác vạc xác bắc chắc mắc rắc tắc nhắc mặc bấc tấc
+ốc cốc cộc gốc mốc mộc độc bốc dốc hộc lốc ngốc góc học lọc nóc sóc tóc thóc bóc bọc cóc cọc khóc ngọc bục cúc chúc đục giục húc lục mục phúc sục tục thúc trục xúc cục bức chức đức lực mực nức nực ngực nhức sức tức thức ức
+bát bạt cát chát đạt hát hạt khát mát nát ngát nhát phát rát sát tát vát bắt cắt đắt gặt hắt mắt sắt tắt thắt vắt bật bất cất chất đất gật hất lật mất mật nhất nhật rất tất thất thật vất vật
+bột bớt bót cột đột đốt hót hột hớt lột lót một nốt ngót nhớt ớt rót rớt sốt sót tốt thót trót vớt xót
+bét hét két khét mét nét sét thét vẹt xét tết chết hết kết nết rết vết dệt bệt bịt bít hít ít mít rít tít vịt xịt lít
+út bút cút chút đút hút mút nút ngút rút sút trút vút bứt đứt mứt nứt vứt dứt
+cáp đáp nạp ngáp nháp sạp tạp tháp chạp bắp cắp chắp đắp gắp khắp lắp nắp sắp thắp bập cập chập đập gập lập mập ngập nhập sập tập thập cấp bấp chấp gấp hấp lấp nấp nhấp sấp tấp thấp vấp
+bóp cóp chóp góp móp thóp họp chộp gộp nộp hộp cớp chớp đớp hớp lớp nhớp hợp lợp rợp chợp
+chép đẹp hẹp kẹp lép nẹp nép xẹp bếp nếp xếp dịp kíp nhịp búp cúp chụp húp súp
+anh bánh canh cành chanh dành đanh gánh hành lanh lạnh mạnh nhanh ngành sanh tanh thanh tranh xanh quanh bệnh chênh kênh lênh mênh thênh bình chính đinh đình hình kính kinh lính mình sinh tính tình trình vinh xinh binh
+sách ách cách khách gạch lạch mách nách sạch tách thách vạch xách ếch chếch lệch kệch xếch ích bích chích dịch đích kịch lịch nghịch nhích tích thích trích xích
+ang bàng bảng càng cảng chàng đàng đảng gang hàng lang làng mạng màng nàng ngang nhang rạng sàng sáng thang tháng trang vang vàng bằng căng chăng đăng găng hăng khăng măng nặng nắng nhăng răng tăng thăng trăng vắng xăng nâng tầng vâng
+ong bong bóng cong chong chóng dong đong đóng long lòng lông móng mong nong thong trong xong sóng song bông công chồng đồng đông hồng không lồng mồng nông sông thông trông bung cung chung dụng hung khung lung nung sung tung thung trung vung xung cũng bụng đùng cưng chừng đừng gừng hưng lưng mừng ngừng nhưng sưng trưng
+việc tiếc biếc xiếc biển biến tiên tiến tiền kiến hiền hiện miền điện liền nhiên thiên chiến chiên tiếp kiếp diếp điệp hiệp
+tiếng riêng miếng siêng kiêng chiêng tiêm kiểm diêm chiếm hiểm yên yến
+biết tiết việt kiệt liệt miệt thiết chiết diệt viết biểu tiêu tiểu kiều chiều diều điều hiếu hiểu kiểu liều nhiều thiếu xiêu yêu yếu
+cuối đuôi chuối muối nuôi ruồi suối tuổi muỗi buồm nhuộm
+cuộc chuộc thuộc đuốc buộc luộc guốc chuột tuột ruột suốt buốt nuốt vuốt
+buồn cuốn chuồn muốn luôn chuồng cuống buông muống ruộng luống uống vuông xuống chuông
+cười mười người tươi lười bưởi lưỡi cưỡi hươu rượu bướu
+được nước bước trước thước ước lược cược mượt mướt lượt trượt tước vượt ướt
+bướm lượm ươm rườm chườm cướp mướp
+ươn bươn lươn vươn ương bướng cương đương gương hương lương mương nương rương sương trương thương tương vương xương tường đường trường cường giường giương
+hoa hòa họa loa toa xoa khoa khoe xòe loe hoe toe
+toàn hoàn loan đoàn khoan ngoan đoạn toán hoạt thoát ngoặt
+hoài loài ngoài xoài thoại khoai huế huệ thuê xuê khuê tuệ huy tuy thủy khuy suy duy
+xuân tuân thuần khuân luân nhuận chuẩn xuất tuất luật thuật suất khuất
+chuyên chuyền chuyện tuyên tuyển huyền khuyên nguyên nguyện thuyền truyền truyện xuyên luyện duyên uyên tuyết huyết nguyệt thuyết duyệt tuyệt khuyết
+xoăn khoăn xóm tăm cừu rìu cử đỗ giun gấc dép trứng súng voi thôn
+`;
+const maxLesson = p => Math.max(p.onset ? (UNIT_LESSON[p.onset] || 999) : 0, UNIT_LESSON[p.rime] || 999, p.tone ? (UNIT_LESSON[p.tone] || 999) : 0);
+const BANK = (() => {
+  const seen = new Set(), out = [];
+  BANK_SRC.split(/\s+/).forEach(raw => {
+    const w = raw.normalize('NFC'); if (!w || seen.has(w)) return; seen.add(w);
+    const p = parseSyllable(w); if (!p) return;
+    const max = maxLesson(p);
+    if (max <= 80) out.push({ w, max });
+  });
+  // Vài vần sẽ học ở học kì II: dùng làm "tiếng lạ" cho các bài cuối học kì I (không có trong 80 bài này)
+  `hoang khoang toang loang khoác toác doanh khoanh loanh hoành hoạch loạch huỳnh huỵch huýt xuýt tuýt ngoằng`.split(' ').forEach(w => { w = w.normalize('NFC'); if (!seen.has(w)) { seen.add(w); out.push({ w, max: 90 }); } });
+  return out;
+})();
+
+// ================= Đánh vần âm, vần, tiếng (theo cách đọc của Tiếng Việt 1) =================
+// Cách đọc từng âm khi đánh vần; tên âm khi giới thiệu có thể khác (gh: gờ kép, ngh: ngờ kép, y: i dài, k: ca)
+const SOUND = { a:'a', 'ă':'á', 'â':'ớ', b:'bờ', c:'cờ', ch:'chờ', d:'dờ', 'đ':'đờ', e:'e', 'ê':'ê', g:'gờ', gh:'gờ', gi:'di', h:'hờ', i:'i', k:'cờ', kh:'khờ', l:'lờ', m:'mờ', n:'nờ', ng:'ngờ', ngh:'ngờ', nh:'nhờ', o:'o', 'ô':'ô', 'ơ':'ơ', p:'pờ', ph:'phờ', qu:'quờ', r:'rờ', s:'sờ', t:'tờ', th:'thờ', tr:'trờ', u:'u', 'ư':'ư', v:'vờ', x:'xờ', y:'i' };
+const UNIT_NAME = { gh:'gờ kép', ngh:'ngờ kép', y:'i dài', k:'ca' };
+const TONE_SHOW = { 'huyền':'à', 'sắc':'á', 'hỏi':'ả', 'ngã':'ã', 'nặng':'ạ' };
+const FINALS = ['ng','nh','ch','c','m','n','p','t'];
+const isOnsetUnit = u => ONSETS.includes(u);
+const kindOf = u => isTone(u) ? 'Dấu thanh' : (isOnsetUnit(u) || [...u].length === 1) ? 'Âm' : 'Vần';
+const rimeSay = r => r === 'y' ? 'i' : r;
+const DIPH = { 'iê': 'ia', 'yê': 'ia', 'uô': 'ua', 'ươ': 'ưa' };
+// Các bước đánh vần một âm, vần hoặc dấu: [{show, say, res}]
+function unitSteps(u) {
+  if (isTone(u)) return [{ show: 'dấu ' + u, say: 'dấu ' + u, tone: true }];
+  if (isOnsetUnit(u) || [...u].length === 1) return [{ show: u, say: UNIT_NAME[u] || SOUND[u] || u, res: true }];
+  // Vần có âm đệm o, u: đánh vần o – an – oan, u – ân – uân, u – i – uy
+  if (/^o[aăe]/.test(u) || /^u[âêyơ]/.test(u)) {
+    const rest = u.slice(1);
+    return [{ show: u[0], say: u[0] }, { show: rest, say: rimeSay(rest) }, { show: u, say: rimeSay(u), res: true, arrow: true }];
+  }
+  // Nguyên âm đôi đọc là một âm: iê, yê đọc là "ia"; uô đọc là "ua"; ươ đọc là "ưa" (ươm: ưa – mờ – ươm; iêu: ia – u – iêu)
+  const core2 = u.slice(0, 2);
+  let fin = FINALS.find(f => u.endsWith(f) && u.length > f.length) || '';
+  if (!fin && DIPH[core2] && [...u].length > 2) fin = u.slice(2);
+  const core = u.slice(0, u.length - fin.length);
+  const st = DIPH[core] ? [{ show: core, say: DIPH[core] }] : [...core].map(ch => ({ show: ch, say: SOUND[ch] || ch }));
+  if (fin) st.push({ show: fin, say: SOUND[fin] || fin });
+  st.push({ show: u, say: rimeSay(u), res: true, arrow: true });
+  return st;
+}
+// Các bước đánh vần một tiếng: bờ – an – ban – huyền – bàn
+function tiengSteps(p) {
+  const st = [], gii = p.onset === 'gi' && p.rime === 'i';
+  const base = gii ? 'gi' : p.onset + p.rime;
+  if (p.onset && !gii) st.push({ show: p.onset, say: SOUND[p.onset] || p.onset });
+  if (!gii) st.push({ show: p.rime, say: rimeSay(p.rime) });
+  if (p.onset) st.push({ show: base, say: base, arrow: true, res: !p.tone });
+  if (p.tone) { st.push({ show: p.tone, say: p.tone, tone: true, arrow: true }); st.push({ show: p.word, say: p.word, res: true, arrow: true }); }
+  return st.length > 1 ? st : null;
+}
+// Tiếng mẫu cho một âm, vần, dấu: ưu tiên tiếng vừa học ở bài này, có âm đầu, ít dấu
+// Tiếng mẫu quen thuộc, có nghĩa với trẻ (dùng khi tiếng đó đọc được ở bài này)
+const MODEL = { b:'ba', c:'cò', e:'bé', 'ê':'bê', o:'bò', 'ô':'cô', 'ơ':'cờ', d:'dê', 'đ':'đỏ', i:'bi', k:'kẻ', h:'hổ', l:'lá', u:'củ', 'ư':'cử', ch:'chó', kh:'khỉ', m:'mẹ', n:'nơ', g:'gà', gi:'giỏ', gh:'ghế', nh:'nhà', ng:'ngõ', ngh:'nghé', r:'rổ', s:'sẻ', t:'tổ', tr:'tre', th:'thỏ', ia:'mía', ua:'cua', 'ưa':'dưa', ph:'phố', qu:'quả', v:'vở', x:'xe',
+  'huyền':'bà', 'sắc':'cá', 'hỏi':'cỏ', 'nặng':'cọ', 'ngã':'đỗ',
+  an:'bàn', 'ăn':'khăn', 'ân':'cân', on:'nón', 'ôn':'thôn', 'ơn':'sơn', en:'đèn', 'ên':'nến', in:'chín', un:'giun', am:'cam', 'ăm':'tăm', 'âm':'nấm', om:'xóm', 'ôm':'tôm', 'ơm':'cơm', em:'kem', 'êm':'đêm', im:'chim', um:'chùm',
+  ai:'tai', ay:'tay', 'ây':'cây', oi:'voi', 'ôi':'đôi', 'ơi':'bơi', ui:'túi', 'ưi':'gửi', ao:'sao', eo:'mèo', au:'rau', 'âu':'trâu', 'êu':'lều', iu:'rìu', 'ưu':'cừu',
+  ac:'bác', 'ăc':'bắc', 'âc':'gấc', oc:'sóc', 'ôc':'cốc', uc:'cúc', 'ưc':'mực', at:'hát', 'ăt':'mắt', 'ât':'đất', ot:'hót', 'ôt':'cột', 'ơt':'vớt', et:'két', 'êt':'tết', it:'vịt', ut:'bút', 'ưt':'mứt',
+  ap:'tháp', 'ăp':'bắp', 'âp':'tập', op:'họp', 'ôp':'hộp', 'ơp':'lớp', ep:'dép', 'êp':'bếp', ip:'nhịp', up:'búp', anh:'chanh', 'ênh':'kênh', inh:'kính', ach:'sách', 'êch':'lệch', ich:'lịch',
+  ang:'bàng', 'ăng':'trăng', 'âng':'tầng', ong:'bóng', 'ông':'công', ung:'súng', 'ưng':'trứng', 'iêc':'xiếc', 'iên':'biển', 'iêp':'tiếp', 'iêng':'tiếng', 'iêm':'tiêm', 'iêt':'viết', 'iêu':'diều',
+  'uôi':'chuối', 'uôm':'buồm', 'uôc':'guốc', 'uôt':'chuột', 'uôn':'cuốn', 'uông':'chuông', 'ươi':'bưởi', 'ươu':'hươu', 'ươc':'nước', 'ươt':'vượt', 'ươm':'bướm', 'ươp':'mướp', 'ươn':'lươn', 'ương':'gương',
+  oa:'hoa', oe:'xòe', oan:'toán', 'oăn':'xoăn', oat:'hoạt', 'oăt':'ngoặt', oai:'khoai', 'uê':'huệ', uy:'khuy', 'uân':'xuân', 'uât':'thuật', 'uyên':'thuyền', 'uyêt':'tuyết' };
+function modelFor(u, n) {
+  const pref = MODEL[u] && BANK.find(x => x.w === MODEL[u] && x.max <= n);
+  if (pref) { const p = parseSyllable(pref.w); if (isTone(u) ? p.tone === u : isOnsetUnit(u) ? p.onset === u : p.rime === u) return p; }
+  const c = BANK.filter(x => x.max <= n).map(x => ({ x, p: parseSyllable(x.w) })).filter(({ p }) => {
+    if (!p || (p.onset === 'gi' && p.rime === 'i')) return false;
+    if (isTone(u)) return p.tone === u;
+    if (isOnsetUnit(u)) return p.onset === u;
+    return p.rime === u && !!p.onset;
+  });
+  if (!c.length) return null;
+  const score = ({ x, p }) => (x.max === n ? 0 : 4) + (isTone(u) ? 0 : p.tone ? 1 : 0) + (p.onset ? 0 : 2) + p.word.length * 0.01;
+  c.sort((a, b) => score(a) - score(b));
+  return c[0].p;
+}
+
+// ================= Kho từ (từ hai tiếng trở lên), tự xếp vào bài nhờ bộ lọc chữ đã học =================
+const WORD_SRC = `
+ba ba|🐢, cá cờ|🐟, bó cỏ|🌿, cổ cò, bé bò, cô bé|👧, bà bế bé, da dê, ô đỏ|☂️, cờ đỏ|🚩, bờ đê, dỗ bé, đồ cổ, bè gỗ, đổ đá
+kì đà|🦎, hồ cá|🐠, lá cờ|🚩, lá đỏ|🍁, cá thu, hổ dữ|🐯, đu đủ, cử tạ|🏋️, chú khỉ|🐒, cá kho, chợ quê, chả cá, lá khô|🍂, quả khế, mũ đỏ|👒, cá mè, nơ đỏ|🎀, ca nô|🚤, củ nghệ, nhà gỗ|🛖, gà gô, giỏ cá|🧺, ghế gỗ|🪑, giá đỗ, nho khô|🍇, nhà ga|🚉, ngõ nhỏ, nghé ọ, nghỉ hè, ý nghĩ, bố mẹ|👪, nhà bà|🏠, củ từ, kẻ ô, bé ngủ|😴, ghi nhớ, giữ gìn, chú chó|🐕, chị gà|🐔
+rổ rá, cá rô|🐟, chó xù|🐩, sư tử|🦁, tre ngà, cá trê, thợ mỏ, thả cá, lá mía, cà chua|🍅, quả dưa|🍉, cửa sổ|🪟, đũa tre|🥢, phở bò|🍜, quả na, vẽ cá, xe ca|🚌, y tá|👩‍⚕️, chú ý, phố cổ, trưa hè|☀️, mùa hè, ngựa gỗ|🐴, sữa chua, cưa gỗ, quả bí, sở thú|🦒, thủ đô, xe lu, tổ chim, chia quà|🎁, cua đá|🦀, mưa to|🌧️, dưa lê, quả dừa|🥥, nhà thờ, ví da|👛, cá sấu|🐊, xe thồ, ô tô|🚗
+bàn chân|🦶, khăn đỏ|🧣, con rắn|🐍, đàn gà|🐔, nón lá|👒, sơn ca|🐦, ngọn nến|🕯️, cái kèn|🎺, con nhện|🕷️, bún chả, quả chín, con giun|🪱, quả cam|🍊, tăm tre, mâm cơm|🍚, chăm chỉ, hồ sen|🪷, thôn xóm, con tôm|🦐, que kem|🍦, chim sẻ|🐦, quả sim, con nhím|🦔, kim chỉ|🪡, ăn cơm|🍚, bạn bè|👫, thơm tho, tên em, đêm rằm|🌕, cây nấm|🍄, tấm thảm, cái chăn, con sên|🐌, đàn bò|🐄, bàn ghế|🪑, ăn no, cân đo, sân nhà, bạn thân, dân ca|🎶, lăn tăn, gần nhà, sân cỏ, con thỏ|🐰, con cá|🐟, con dê|🐐, con bò|🐄, lon ton, ôn tồn, mơn mởn, đèn đỏ|🚦, lên xe, bên hồ, tên bé, bún bò|🍜, nhà chật hẹp
+hai tay|🙌, máy bay|✈️, cây đa|🌳, bàn tay|✋, bơi lội|🏊, cái chổi|🧹, nồi cơm|🍚, quả ổi, đồ chơi|🧸, con voi|🐘, con sói|🐺, bầu trời, ngói đỏ, cái túi|👜, núi đá|⛰️, gửi thư|✉️, bụi tre, ngửi mùi, quả táo|🍎, con mèo|🐈, cái kéo|✂️, ngôi sao|⭐, chim sáo, leo trèo, cây cau, rau cải|🥬, cái cầu|🌉, quả dâu|🍓, con trâu|🐃, con sâu|🐛, cái lều|⛺, chú cừu|🐑, cái rìu|🪓, trái lựu, cái gối, ngày mai, xe đẩy, chạy nhảy|🏃, vui vẻ|😊, áo mới|👕, màu nâu, kêu meo meo|🐈, bé hiếu thảo
+con vạc, bác sĩ|👨‍⚕️, con hạc, quả gấc, con ốc|🐌, con cóc|🐸, cái cốc|🥛, máy xúc|🚜, cá mực|🦑, nhổ cỏ, học bài|📖, mái tóc, con sóc|🐿️, cái mắc áo, tóc dài, mặc áo|👕, sức khỏe, đọc to, bãi cát|🏖️, hạt đậu|🫘, cái bát|🥣, quả ớt|🌶️, cây cột, quả mít, con vịt|🦆, con két|🦜, cái bút|✏️, củ cà rốt|🥕, mứt tết, hát ca|🎤, rửa mặt, mặt đất, mát mẻ, chim hót
+xe đạp|🚲, tập vẽ|🖍️, bắp ngô|🌽, cái hộp|📦, lớp học|🏫, đôi dép|🩴, búp bê|🪆, cái bếp, sắp xếp, gặp bạn, xếp hàng, tấp nập, chụp ảnh|📷, giúp đỡ, đẹp quá, ngăn nắp
+sách vở|📚, con ếch|🐸, cây chanh|🍋, bánh mì|🥖, bức tranh|🖼️, cành cây|🌿, hình vẽ, thích thú, mặt trăng|🌙, cây bàng, bảng đen, cái thang|🪜, nắng vàng|☀️, hàm răng|🦷, con ong|🐝, dòng sông|🏞️, cây thông|🌲, quả bóng|⚽, cái trống|🥁, cá vàng|🐠, rừng xanh|🌳, cái võng, con công|🦚, quả hồng, chong chóng, bông súng, sạch sẽ, lịch sự, cái kính|👓, bánh chưng, quả trứng|🥚, ông bà|👴, cô giáo|👩‍🏫, vâng lời
+xem xiếc|🎪, con kiến|🐜, biển xanh|🌊, tiếng chim, cái kiềng, chim yến, yên ngựa, cánh diều|🪁, viết chữ|✍️, xe điện, thiên nga|🦢, tiết kiệm, yêu thương, hiểu biết, bé chăm chỉ, cái chiếu, buổi chiều
+quả chuối|🍌, hạt muối|🧂, dòng suối, con ruồi, cánh buồm|⛵, cái guốc, con chuột|🐭, buồn ngủ, cái chuông|🔔, rau muống|🥬, ruộng lúa|🌾, quả bưởi, con hươu|🦌, tươi cười|😄, cái lưỡi|👅, nuôi cá, cuộn len|🧶, uống nước|🥤, quả nhót, cái thuổng, buổi sáng
+con bướm|🦋, quả mướp, cái giường|🛏️, con đường|🛣️, cái gương|🪞, trường học|🏫, con lươn, vườn rau, nước mắt, bước đi, hạt sương, người lớn, quê hương, sương mù|🌫️, thước kẻ|📏, nương lúa, con cá đuối, cái lược
+quả xoài|🥭, khoai lang|🍠, toa tàu|🚃, múa xòe|💃, chích chòe, học toán|🔢, hoạt hình, củ khoai, hoa huệ, áo hoa, tàu thủy|🚢, thủy thủ, mùa xuân|🌸, nghệ thuật|🎨, con thuyền|⛵, kể chuyện|📖, bông tuyết|❄️, truyện tranh|📖, khu vườn, bé ngoan, liên hoan|🎉, hoa hồng|🌹, khỏe khoắn, bông hoa|🌸, lọ hoa|🏺, hoa cúc|🌼, ngủ ngoan|😴, tóc xoăn, luyện tập, quả quýt, tuần lễ, quyển vở|📒, xuất phát, khuy áo, cây vạn tuế, cái loa|📢, hoan hô|👏
+`;
+const WORDS = (() => {
+  const seen = new Set(), out = [];
+  WORD_SRC.split(/[,\n]/).forEach(item => {
+    const [raw, em] = item.split('|').map(s => (s || '').trim());
+    const w = (raw || '').normalize('NFC'); if (!w || seen.has(w)) return; seen.add(w);
+    const ps = w.split(/\s+/).map(parseSyllable);
+    if (ps.some(p => !p)) return;
+    const max = Math.max(...ps.map(maxLesson));
+    if (max <= 80) out.push({ w, em: em || '', max });
+  });
+  return out;
+})();
+
+// ================= Truyện đọc =================
+const MAXSTAR = () => 3; // 1 sao đọc xong truyện, 2 sao trả lời đúng ngay lần đầu (1 sao nếu đúng sau khi thử lại)
+const LEVELS = [['l1', 'Mức 1', 'Em đang tập'], ['l2', 'Mức 2', 'Em đọc được'], ['l3', 'Mức 3', 'Em thử thách']];
+const AVATARS = ['🐱', '🐶', '🐰', '🐻', '🐼', '🦊', '🐯', '🐸'];
+
+// ================= Tiện ích =================
+const $ = s => document.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v; else if (k === 'html') n.innerHTML = v;
+    else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+    else if (v === true) n.setAttribute(k, ''); else if (v !== false && v != null) n.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) n.append(k.nodeType ? k : document.createTextNode(k));
+  return n;
+};
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const letters = s => String(s).toLowerCase().replace(/[^a-zà-ỹđ]/g, '');
+
+// bạn máy
+const maySVG = size => `<svg width="${size}" height="${size}" viewBox="0 0 120 120" role="img" aria-label="bạn máy">
+  <g class="ant"><line x1="60" y1="8" x2="60" y2="22" stroke="#6F55CF" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="8" r="6" fill="#F4B41A"/></g>
+  <rect x="12" y="20" width="96" height="72" rx="16" fill="#6F55CF"/><rect x="21" y="29" width="78" height="54" rx="10" fill="#FFFFFF"/>
+  <ellipse cx="46" cy="50" rx="5" ry="6" fill="#1B2F55"/><ellipse cx="74" cy="50" rx="5" ry="6" fill="#1B2F55"/>
+  <ellipse cx="35" cy="63" rx="6" ry="3.5" fill="#DD4B35" opacity=".35"/><ellipse cx="85" cy="63" rx="6" ry="3.5" fill="#DD4B35" opacity=".35"/>
+  <path class="mouth" d="M48 62 Q60 74 72 62" stroke="#1B2F55" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <rect x="52" y="92" width="16" height="10" fill="#6F55CF"/><rect x="36" y="100" width="48" height="9" rx="4" fill="#6F55CF"/></svg>`;
+$('#logo').innerHTML = maySVG(48);
+const setTalk = on => { document.body.dataset.talk = on ? '1' : '0'; };
+
+// ================= Lưu trên máy này =================
+const LS = 'hoc-cung-ban-may-v1', VK = 'hcbm-voice-v1';
+let ST = { name: '', avatar: '', best: {}, upto: 0, qbest: {} };
+try { const j = JSON.parse(localStorage.getItem(LS) || 'null'); if (j) ST = { name: String(j.name || '').slice(0, 20), avatar: j.avatar || '', best: j.best || {}, upto: Math.min(80, Math.max(0, parseInt(j.upto, 10) || 0)), qbest: j.qbest || {} }; } catch (e) {}
+const save = () => { try { localStorage.setItem(LS, JSON.stringify(ST)); } catch (e) {} };
+const totalStars = () => [ST.best, ST.qbest].reduce((t, o) => t + Object.values(o).reduce((a, b) => a + (+b || 0), 0), 0);
+
+// ================= Giọng đọc: ưu tiên giọng nữ, tốc độ vừa phải =================
+// Tốc độ tính theo số tiếng mỗi giây khi đọc (nói thường khoảng 5 tiếng/giây; đọc mẫu cho học sinh lớp 1 chậm hơn, rõ từng tiếng)
+const SPEEDS = { slow: { label: 'Chậm (khoảng 2,3 tiếng/giây)', sps: 2.3 }, mid: { label: 'Vừa phải, rõ từng tiếng (khoảng 2,8 tiếng/giây, khuyên dùng)', sps: 2.8 }, fast: { label: 'Nhanh hơn (khoảng 3,4 tiếng/giây)', sps: 3.4 } };
+const PITCHES = { '1': 'Giọng thường', '1.2': 'Cao hơn một chút', '1.4': 'Cao hơn' };
+const TTS = { voice: null, ok: false, list: [], pref: { name: null, speed: 'mid', pitch: '1' }, sig: null, cur: null };
+try { const j = JSON.parse(localStorage.getItem(VK) || 'null'); if (j) TTS.pref = { name: j.name || null, speed: SPEEDS[j.speed] ? j.speed : 'mid', pitch: PITCHES[j.pitch] ? j.pitch : '1' }; } catch (e) {}
+const saveVoice = () => { try { localStorage.setItem(VK, JSON.stringify(TTS.pref)); } catch (e) {} };
+// Mỗi giọng có tốc độ gốc khác nhau: ước lượng trước theo tên giọng, rồi tự đo lại khi đọc để giữ đúng tốc độ đã chọn trên mọi máy
+const CALK = VK + '-cal';
+let CAL = {}; try { CAL = JSON.parse(localStorage.getItem(CALK) || '{}') || {}; } catch (e) { CAL = {}; }
+const priorSps = v => { const n = (v && v.name) || ''; return /online|natural|neural/i.test(n) ? 4.8 : /google/i.test(n) ? 4.3 : /microsoft/i.test(n) ? 4.0 : 4.2; };
+const voiceSps = () => (TTS.voice && CAL[TTS.voice.name]) || priorSps(TTS.voice);
+const clampRate = r => Math.max(0.5, Math.min(1.1, r));
+const baseRate = () => clampRate(SPEEDS[TTS.pref.speed].sps / voiceSps());
+const wordRate = () => Math.max(0.5, baseRate() - 0.05);
+function learnRate(text, rate, sec) {
+  const n = String(text).split(/\s+/).filter(w => /[\p{L}\d]/u.test(w)).length;
+  if (!TTS.voice || n < 4 || !(sec > 0.4 && sec < 40)) return;
+  const obs = n / sec / rate; if (obs < 2 || obs > 9) return;
+  const k = TTS.voice.name, old = CAL[k] || priorSps(TTS.voice);
+  CAL[k] = Math.round((old * 0.6 + obs * 0.4) * 100) / 100;
+  try { localStorage.setItem(CALK, JSON.stringify(CAL)); } catch (e) {}
+}
+function voiceGender(v) {
+  const n = (v.name || '').normalize('NFC').toLowerCase();
+  if (/female|\bnữ\b/.test(n)) return 'f';
+  if (/hoai\s*my|hoaimy|linh|\bmai\b|\blan\b|thảo|yến|hương|ngọc|\btrang\b/.test(n)) return 'f';
+  if (/\bmale\b|\bnam\b|\ban\b|nam\s*minh|namminh|hùng|khoa|đức|tuấn|bình|vĩnh|\bminh\b/.test(n)) return 'm';
+  if (/^google/.test(n)) return 'f';
+  return '?';
+}
+const GL = { f: 'giọng nữ', m: 'giọng nam', '?': 'chưa rõ nam hay nữ' };
+// Ưu tiên giọng nữ chuẩn: HoaiMy (Edge) > Google Tiếng Việt > giọng nữ nâng cao của Apple > giọng nữ khác > giọng nam
+const voiceScore = x => (x.g === 'f' ? 100 : x.g === '?' ? 40 : 0) + (x.neural ? 80 : 0) + (/hoai\s*my|hoaimy/i.test(x.v.name) ? 30 : 0) + (/google/i.test(x.v.name) ? 20 : 0) + (/enhanced|premium|nâng cao/i.test(x.v.name) ? 15 : 0) + (/^vi[-_]vn$/i.test(x.v.lang) ? 2 : 0);
+const shortName = v => ((v.name || '').normalize('NFC').replace(/Microsoft|Google|Online|Natural|Vietnamese|Tiếng Việt|\(.*?\)|[-–]/gi, ' ').replace(/\s+/g, ' ').trim()) || v.name;
+const curGender = () => { const x = TTS.list.find(y => y.v === TTS.voice); return x ? x.g : null; };
+function pickVoice() {
+  try {
+    const vs = (speechSynthesis.getVoices() || []).filter(v => /^vi([-_]|$)/i.test(v.lang));
+    TTS.list = vs.map(v => ({ v, g: voiceGender(v), neural: /natural|online|neural/i.test(v.name) })).sort((a, b) => voiceScore(b) - voiceScore(a));
+    const chosen = TTS.pref.name && TTS.list.find(x => x.v.name === TTS.pref.name);
+    const fem = TTS.list.find(x => x.g === 'f');
+    TTS.voice = chosen && (chosen.g === 'f' || !fem) ? chosen.v : TTS.list.length ? TTS.list[0].v : null;  // có giọng nữ thì luôn dùng giọng nữ
+  } catch (e) { TTS.list = []; TTS.voice = null; }
+  TTS.ok = !!TTS.voice;
+  document.body.dataset.tts = TTS.ok ? '1' : '0';
+  const sig = TTS.list.map(x => x.v.name).join('|') + '#' + (TTS.voice ? TTS.voice.name : '');
+  if (sig !== TTS.sig) { TTS.sig = sig; const vb = $('#voiceBox'); if (vb) fillVoice(vb); }
+}
+// Chia lời đọc thành từng cụm ngắn (câu, hoặc từng mục trong danh sách "a · b · c"), mỗi cụm biết nó ứng với chữ nào để tô sáng
+function splitSegments(text) {
+  const toks = String(text).split(' ');
+  const segs = []; let cur = [], from = 0;
+  const flush = to => { const t = cur.join(' ').replace(/\s+/g, ' ').trim(); if (t) segs.push({ text: t, from, to }); cur = []; };
+  toks.forEach((tk, i) => {
+    if (tk === '·') { flush(i - 1); from = i + 1; return; }
+    if (!cur.length) from = i;
+    cur.push(tk);
+    if (/[.!?]$/.test(tk)) { flush(i); segs.length && (segs[segs.length - 1].gap = 550); from = i + 1; }
+    else if (/[,:;]$/.test(tk)) { flush(i); segs.length && (segs[segs.length - 1].gap = 260); from = i + 1; }
+  });
+  flush(toks.length - 1);
+  return segs;
+}
+let speakToken = 0, activeOnSeg = null;
+function stopSpeak() {
+  speakToken++;
+  try { speechSynthesis.cancel(); } catch (e) {}
+  setTalk(false);
+  if (activeOnSeg) { const f = activeOnSeg; activeOnSeg = null; try { f(-1); } catch (e) {} }
+}
+function speak(text, o) {
+  o = o || {};
+  if (!TTS.ok) return false;
+  const segs = o.segs || splitSegments(text);
+  if (!segs.length) return false;
+  stopSpeak();
+  try { speechSynthesis.resume(); } catch (e) {}
+  const token = speakToken;
+  activeOnSeg = o.onSeg || null;
+  setTimeout(() => runSeg(segs, 0, o, token), 90);
+  return true;
+}
+function runSeg(segs, i, o, token) {
+  if (token !== speakToken) return;
+  if (i >= segs.length) { setTalk(false); if (o.onSeg) { const f = o.onSeg; activeOnSeg = null; f(-1); } return; }
+  const sg = segs[i];
+  let u;
+  try { u = new SpeechSynthesisUtterance(sg.text); } catch (e) { return; }
+  TTS.cur = u;
+  u.voice = TTS.voice; u.lang = TTS.voice.lang; u.volume = 1; u.pitch = parseFloat(TTS.pref.pitch) || 1;
+  u.rate = sg.rate || o.rate || baseRate();
+  let fin = false, guard = null;
+  const next = () => { if (fin) return; fin = true; clearTimeout(guard); setTimeout(() => runSeg(segs, i + 1, o, token), sg.gap != null ? sg.gap : o.gap != null ? o.gap : 300); };
+  let t0 = 0;
+  u.onstart = () => { t0 = performance.now(); if (token === speakToken) { setTalk(true); if (o.onSeg) o.onSeg(i, sg); } };
+  u.onend = () => { if (t0) learnRate(sg.text, u.rate, (performance.now() - t0) / 1000); next(); }; u.onerror = next;
+  guard = setTimeout(next, 6000 + sg.text.length * 250);
+  try { speechSynthesis.speak(u); } catch (e) { next(); }
+}
+const spoken = s => String(s).replace(/[“”"]/g, '').replace(/\s[–—]\s/g, ', ').replace(/\s+/g, ' ').trim();
+const cue = parts => { const segs = []; parts.filter(Boolean).forEach(p => splitSegments(spoken(p)).forEach(sg => segs.push({ text: sg.text, from: sg.from, to: sg.to, gap: sg.gap }))); return speak('', { segs }); };
+const speakText = (text, hl) => speak(spoken(text), hl ? { onSeg: (i, sg) => hl(i < 0 ? null : sg) } : {});
+const speakWord = w => { w = String(w).replace(/[.,!?:;·]/g, '').trim(); if (w) speak('', { segs: [{ text: w }], rate: wordRate() }); };
+function speakSlow(text, hl) {
+  const segs = [];
+  String(text).split(' ').forEach((tk, i) => { const t = tk.replace(/[.,!?:;·]/g, '').trim(); if (t) segs.push({ text: t, from: i, to: i, gap: /[.!?]$/.test(tk) ? 700 : 450 }); });
+  if (!segs.length) return false;
+  return speak('', { segs, rate: Math.min(0.6, baseRate()), onSeg: hl ? (i, sg) => hl(i < 0 ? null : sg) : null });
+}
+const speakerIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+function sayRow(text, spans) {
+  const hl = sg => spans.forEach((sp, k) => sp.classList.toggle('hl', !!sg && k >= sg.from && k <= sg.to));
+  const mk = (cls, icon, lab, fn) => { const b = el('button', { class: 'say ' + cls, 'aria-label': lab }); b.innerHTML = icon + '<span>' + lab + '</span>'; b.onclick = fn; return b; };
+  return el('div', { class: 'sayrow' }, mk('', speakerIcon, 'Nghe', () => speakText(text, hl)), mk('slow', '<span aria-hidden="true" style="font-size:22px">🐢</span>', 'Nghe chậm', () => speakSlow(text, hl)));
+}
+let actx = null;
+function chime(good) {
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    (good ? [660, 880] : [330]).forEach((f, i) => { const o = actx.createOscillator(), g = actx.createGain(); o.type = 'sine'; o.frequency.value = f; const t = actx.currentTime + i * 0.12; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.15, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.28); o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + 0.3); });
+  } catch (e) {}
+}
+try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; setTimeout(pickVoice, 600); setTimeout(pickVoice, 2500); } catch (e) {}
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpeak(); });
+
+// ================= Giải thích vì sao một tiếng là "lạ" =================
+const lessonTxt = u => UNIT_LESSON[u] ? ' (Bài ' + UNIT_LESSON[u] + ')' : ' (học ở học kì II)';
+function whyBad(c, N) {
+  const parts = [];
+  if (c.onset && !((UNIT_LESSON[c.onset] || 999) <= N)) parts.push('âm ' + c.onset + lessonTxt(c.onset));
+  if (!((UNIT_LESSON[c.rime] || 999) <= N)) parts.push((c.rime.length < 2 ? 'âm ' : 'vần ') + c.rime + lessonTxt(c.rime));
+  if (c.tone && !((UNIT_LESSON[c.tone] || 999) <= N)) parts.push('dấu ' + c.tone + lessonTxt(c.tone));
+  return parts.join(', ');
+}
+
+// ================= Màn hình =================
+let view = 'home', R = null;
+function go(v) { stopSpeak(); if (R) { R.tk++; (R.timers || []).forEach(clearTimeout); R.timers = []; } view = v; render(); try { window.scrollTo(0, 0); } catch (e) {} }
+function render() {
+  const m = $('#main'); m.replaceChildren();
+  $('#homeBtn').hidden = view === 'home';
+  ({ home: homeView, lessons: lessonsView, lesson: lessonView, quick: quickView, play: playView, done: doneView })[view](m);
+  $('#starTotal').textContent = totalStars();
+}
+$('#homeBtn').onclick = () => go('home');
+
+// ---------- Trang chủ ----------
+function homeView(m) {
+  const hello = () => cue([(ST.name ? 'Chào ' + ST.name + '! ' : 'Chào bạn! ') + 'Mình là bạn máy. Hôm nay mình cùng học đọc nhé!']);
+  const mayEl = el('button', { class: 'may', style: 'border:none;background:none;padding:0', 'aria-label': 'Chạm để nghe bạn máy chào', onclick: hello }); mayEl.innerHTML = maySVG(110);
+  const bub = el('div', { class: 'bubble' }, (ST.name ? 'Chào ' + ST.name + '! ' : 'Chào bạn! ') + 'Mình là bạn máy. Hôm nay mình cùng học đọc nhé!');
+  m.append(el('div', { class: 'stack' },
+    el('div', { class: 'card' }, el('div', { class: 'talk' }, mayEl, bub)),
+    profileCard(bub),
+    pathCard(),
+    el('div', null, el('h2', { class: 'sec', text: 'Truyện của bài' }), storyGrid()),
+    voiceCard()));
+}
+function profileCard(bub) {
+  const av = el('div', { class: 'avatars', role: 'group', 'aria-label': 'Chọn hình đại diện' });
+  AVATARS.forEach(a => { const b = el('button', { 'aria-pressed': String(ST.avatar === a), 'aria-label': 'Hình ' + a, text: a, onclick: () => { ST.avatar = a; save(); av.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); } }); av.append(b); });
+  const inp = el('input', { id: 'nm', maxlength: '20', autocomplete: 'off', value: ST.name, placeholder: 'Tên của em' });
+  inp.oninput = () => { ST.name = inp.value.trim().slice(0, 20); save(); };
+  return el('div', { class: 'card stack' }, el('div', { class: 'field' }, el('label', { for: 'nm', text: 'Em tên là gì?' }), inp), el('div', { class: 'field' }, 'Chọn hình của em', av));
+}
+function storyCard(sid) {
+  const best = Math.min(ST.best[sid] || 0, MAXSTAR(sid));
+  return el('button', { class: 'story-card', onclick: () => startPlay(sid) },
+    el('span', { class: 'em', text: storyEmoji(sid) }), el('b', { text: STORIES[sid].title }), el('span', { class: 'meta', text: 'Truyện của Bài ' + sid + ' · ' + lessonLabel(sid) }),
+    el('span', { class: 'best', 'aria-label': best + ' trên ' + MAXSTAR(sid) + ' sao' }, '⭐'.repeat(best) + '☆'.repeat(MAXSTAR(sid) - best), el('i', { text: best + '/' + MAXSTAR(sid) })));
+}
+// Truyện của bài em đang học và hai truyện ngay trước đó
+function storyGrid() {
+  const g = el('div', { class: 'stories' }), cur = ST.upto || 0;
+  const ids = Object.keys(STORIES).map(Number).filter(n => n <= cur).sort((x, y) => y - x).slice(0, 3);
+  if (!ids.length) return el('div', { class: 'note', text: cur ? 'Truyện có từ Bài 4. Em học thêm vài bài nữa nhé!' : 'Em chọn bài học để mở truyện của bài nhé!' });
+  ids.forEach(n => g.append(storyCard(n)));
+  return g;
+}
+function voiceCard() {
+  const d = el('details', { class: 'card' }, el('summary', { text: 'Giọng bạn máy (dành cho người lớn)' }), el('div', { id: 'voiceBox', style: 'margin-top:12px' }));
+  fillVoice(d.querySelector('#voiceBox'));
+  return d;
+}
+function fillVoice(box) {
+  box.replaceChildren();
+  const guide = el('details', null, el('summary', { style: 'cursor:pointer;font-weight:700;color:var(--blue)', text: 'Cách có giọng nữ tiếng Việt' }));
+  guide.append(el('ul', { class: 'small', style: 'margin:8px 0 0;padding-left:18px;line-height:1.7' },
+    el('li', { text: 'Máy tính Windows hoặc Mac: mở trang bằng Microsoft Edge để có giọng nữ "HoaiMy" (cần có mạng).' }),
+    el('li', { text: 'Chrome trên máy tính hoặc Android: dùng giọng "Google Tiếng Việt" (giọng nữ). Trên Android: Cài đặt › Chuyển văn bản thành giọng nói › Google, tải dữ liệu Tiếng Việt.' }),
+    el('li', { text: 'iPad, iPhone, Mac: Cài đặt › Trợ năng › Nội dung được đọc › Giọng nói › Tiếng Việt, tải một giọng nữ tiếng Việt.' }),
+    el('li', { text: 'Sau khi cài, tải lại trang rồi chọn giọng ở đây.' })));
+  if (!TTS.list.length) { box.append(el('div', { class: 'note bad', text: 'Máy này chưa có giọng đọc tiếng Việt nên bạn máy chưa nói thành tiếng được. Em vẫn chơi được, nhờ người lớn đọc giúp em.' }), el('div', { style: 'height:10px' }), guide); return; }
+  const sel = el('select', { id: 'selV' }); TTS.list.forEach(x => sel.append(el('option', { value: x.v.name, selected: x.v === TTS.voice, text: shortName(x.v) + ' · ' + GL[x.g] + (x.neural ? ' · giọng tự nhiên' : '') })));
+  const spd = el('select', { id: 'selS' }); Object.entries(SPEEDS).forEach(([k, v]) => spd.append(el('option', { value: k, selected: k === TTS.pref.speed, text: v.label })));
+  const pit = el('select', { id: 'selP' }); Object.entries(PITCHES).forEach(([k, v]) => pit.append(el('option', { value: k, selected: k === TTS.pref.pitch, text: v })));
+  const test = () => cue(['Chào các em! Mình là bạn máy. Hôm nay chúng mình cùng đọc truyện nhé.']);
+  sel.onchange = () => { TTS.pref.name = sel.value; saveVoice(); pickVoice(); setTimeout(test, 150); };
+  spd.onchange = () => { TTS.pref.speed = spd.value; saveVoice(); test(); };
+  pit.onchange = () => { TTS.pref.pitch = pit.value; saveVoice(); test(); };
+  box.append(el('div', { class: 'frow' }, el('label', { for: 'selV' }, 'Giọng đọc', sel), el('label', { for: 'selS' }, 'Tốc độ', spd), el('label', { for: 'selP' }, 'Độ cao giọng', pit)),
+    el('div', { style: 'height:10px' }), el('button', { class: 'btn primary', id: 'bTest', text: 'Nghe thử', onclick: test }));
+  box.append(el('div', { style: 'height:10px' }), el('div', { class: 'note', text: 'Để cả lớp nghe rõ: bật loa ngoài hoặc nối loa lớn, để âm lượng máy từ 70% trở lên; chọn giọng có ghi “giọng tự nhiên” (rõ và tròn tiếng nhất); để tốc độ “Vừa phải”. Bạn máy tự nghỉ hơi ở dấu phẩy, dấu chấm và đọc chậm hơn khi đọc từng tiếng.' }));
+  const g = curGender();
+  if (g !== 'f') box.append(el('div', { style: 'height:10px' }), el('div', { class: 'note bad', text: 'Giọng đang dùng ' + (g === 'm' ? 'là giọng nam' : 'chưa rõ là nam hay nữ') + '. ' + (TTS.list.some(x => x.g === 'f') ? 'Máy này có giọng nữ, hãy chọn trong danh sách.' : 'Máy này chưa có giọng nữ tiếng Việt: xem cách cài bên dưới, hoặc tạm chọn độ cao giọng "Cao hơn".') }));
+  box.append(el('div', { style: 'height:10px' }), guide);
+}
+
+// ---------- Đọc truyện: chọn mức, nghe, đọc to, trả lời câu hỏi ----------
+function startPlay(sid) {
+  CUR = sid;
+  R = { sid, from: view, level: 'l2', readDone: false, readStar: 0, qStar: 0, qTries: 0, tk: 0, timers: [] };
+  go('play');
+}
+function setBub(t, talk) { $('#bub').textContent = t; if (talk !== false) cue([t]); }
+const nextBtn = (label, fn, enabled = true) => { const b = el('button', { class: 'big', text: label, onclick: fn }); b.disabled = !enabled; return b; };
+function playView(m) {
+  const S = STORIES[R.sid], stage = el('div', { class: 'card', id: 'stage' });
+  m.append(el('div', { class: 'stack' }, el('h2', { class: 'sec', style: 'margin:0', text: storyEmoji(R.sid) + ' ' + S.title + ' · Bài ' + R.sid }), talkRow(), stage));
+  readStory(stage);
+}
+// Ba mức đọc: Mức 1 là các tiếng có âm, vần của bài và câu đầu; Mức 2 là nửa đầu truyện; Mức 3 là cả truyện
+const lessonUnits = n => { const L = lessonOf(n); return (L.u.length ? L.u : reviewUnits(n)).filter(u => !isTone(u)); };
+function storyLevels(sid) {
+  const S = STORIES[sid];
+  if (S.l1 && S.l2) return S;
+  const sents = S.l3.split(/(?<=[.!?])\s+/).filter(Boolean), units = lessonUnits(sid), keys = [];
+  S.l3.split(/\s+/).forEach(tk => {
+    const w = tk.replace(/[^\p{L}]/gu, ''); if (!w || w[0] !== w[0].toLowerCase()) return;
+    const p = parseSyllable(w); if (p && (units.includes(p.onset) || units.includes(p.rime)) && !keys.includes(p.word)) keys.push(p.word);
+  });
+  const k = keys.slice(0, 6);
+  return { ...S, l1: (k.length ? k.join(' · ') + '. ' : '') + sents[0], l2: sents.slice(0, Math.max(1, Math.ceil(sents.length / 2))).join(' '), l3: S.l3 };
+}
+function readStory(stage) {
+  const S = storyLevels(R.sid), marks = lessonOf(R.sid).u.filter(u => !isTone(u));
+  setBub('Mình cùng đọc truyện “' + S.title + '” nhé! Em chọn mức vừa sức, bấm Nghe, rồi đọc to theo.');
+  const tabs = el('div', { class: 'tabs', role: 'group', 'aria-label': 'Chọn mức đọc' }), body = el('div');
+  const paint = () => {
+    tabs.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.l === R.level)));
+    body.replaceChildren();
+    const text = S[R.level], spans = [], paper = el('div', { class: 'paper' });
+    text.split(' ').forEach(w => {
+      const s = el('span', { class: 'w' + (w === '·' ? ' dot' : '') });
+      if (w === '·') s.textContent = w; else { const m = w.match(/^(.*?)([.,!?:;]*)$/); s.append(markWord(m[1], marks), m[2]); }
+      spans.push(s); paper.append(s, ' ');
+    });
+    body.append(paper, sayRow(text, spans));
+  };
+  LEVELS.forEach(([k, n, d]) => { const b = el('button', { 'data-l': k, onclick: () => { stopSpeak(); R.level = k; paint(); } }); b.innerHTML = n + '<small>' + d + '</small>'; tabs.append(b); });
+  const qbox = el('div'), done = el('button', { class: 'big', text: 'Em đọc xong rồi ✓' });
+  done.onclick = () => { done.hidden = true; R.readDone = true; R.readStar = 1; chime(true); showQ(); };
+  const showQ = () => {
+    qbox.replaceChildren(); setBub('Giỏi lắm! Bạn máy hỏi nhé: ' + S.q);
+    const grid = el('div', { class: 'qa' });
+    S.opts.forEach(([t, em], i) => {
+      const b = el('button', { 'aria-label': t }); b.innerHTML = `<span class="em">${em}</span>${cap(t)}`;
+      b.onclick = () => {
+        speakWord(t);
+        if (i === S.a) {
+          R.qStar = R.qTries ? 1 : 2; chime(true); grid.querySelectorAll('button').forEach(x => x.disabled = true); b.classList.add('good'); b.disabled = true;
+          setBub('Đúng rồi! Em đọc hay lắm!');
+          qbox.append(el('div', { class: 'nav' }, nextBtn('Xem sao của em ›', finishRun)));
+        } else { R.qTries++; b.disabled = true; chime(false); $('#bub').textContent = 'Chưa đúng. Em đọc lại truyện rồi thử nữa nhé.'; cue(['Chưa đúng.', 'Em đọc lại truyện rồi thử nữa nhé.']); }
+      };
+      grid.append(b);
+    });
+    qbox.append(el('h2', { class: 'sec', text: S.q }), grid);
+  };
+  stage.append(tabs, body, el('div', { class: 'nav' }, done), qbox);
+  paint();
+  if (R.readDone) { done.hidden = true; showQ(); }
+}
+// ================= Chọn bài học =================
+let CUR = 0, WSHOW = [], WN = 0, Q = null, LAST = null;
+const lessonLabel = n => { const L = lessonOf(n); return L.u.length ? L.t : (/^Ôn/.test(L.t) ? 'Ôn tập' : 'Luyện tập'); };
+const unitLabel = u => TONES.includes(u) ? 'dấu ' + u : u;
+const reviewUnits = n => { const out = []; for (let k = Math.max(1, n - 4); k < n; k++) lessonOf(k).u.forEach(u => { if (!out.includes(u)) out.push(u); }); return out; };
+// Các tiếng để đọc ở bài n: tiếng vừa mở khóa ở bài này; bài ôn tập thì ôn các tiếng của bốn bài trước
+function wordPool(n) {
+  let pool = lessonOf(n).u.length ? BANK.filter(x => x.max === n) : [];
+  if (!pool.length) pool = BANK.filter(x => x.max <= n && x.max >= Math.max(1, n - 4));
+  if (!pool.length) pool = BANK.filter(x => x.max <= n);
+  return pool;
+}
+const pickShow = n => { const pool = wordPool(n); return pool.length <= 12 ? pool.slice() : shuffle(pool).slice(0, 12); };
+const canQuick = n => BANK.filter(x => x.max <= n).length >= 3 && BANK.some(x => x.max > n);
+
+// ---------- Đọc âm, vần · tiếng · từ ----------
+let TSHOW = [], TN = 0;
+// Từ để đọc ở bài n: từ có chữ vừa học ở bài này; thêm từ của bốn bài trước nếu còn ít; bài ôn tập thì ôn từ của bốn bài trước
+function wordsPool(n) {
+  const rev = !lessonOf(n).u.length;
+  let pool = rev ? [] : WORDS.filter(x => x.max === n);
+  if (pool.length < 6) pool = pool.concat(WORDS.filter(x => x.max < n && x.max >= Math.max(1, n - 4) && !pool.includes(x)));
+  if (pool.length < 4) pool = pool.concat(WORDS.filter(x => x.max <= n && !pool.includes(x)));
+  return pool;
+}
+function pickWords(n) {
+  const pool = wordsPool(n), fresh = shuffle(pool.filter(x => x.max === n)), older = shuffle(pool.filter(x => x.max !== n));
+  return fresh.concat(older).slice(0, 8);
+}
+// Tô màu phần âm hoặc vần của bài trong một tiếng hay một từ
+function markWord(text, units) {
+  const f = document.createDocumentFragment();
+  text.split(' ').forEach((sy, i) => {
+    if (i) f.append(' ');
+    const p = units.length ? parseSyllable(sy) : null;
+    if (!p) { f.append(sy); return; }
+    const on = p.onset === 'gi' && p.rime === 'i' ? 1 : p.onset.length;
+    const a = sy.slice(0, on), b = sy.slice(on);
+    const mk = (t, yes) => t ? (yes ? el('span', { class: 'mk', text: t }) : t) : null;
+    [mk(a, units.includes(p.onset)), mk(b, units.includes(p.rime))].forEach(x => x && f.append(x));
+  });
+  return f;
+}
+function secHead(num, title, sub) {
+  return el('div', null, el('h3', { class: 'h3' }, el('span', { class: 'num', text: String(num) }), title), sub ? el('p', { class: 'h3sub', text: sub }) : null);
+}
+function listenBtn(label, fn, cls) {
+  const b = el('button', { class: 'say' + (cls ? ' ' + cls : ''), 'aria-label': label }); b.innerHTML = speakerIcon + '<span>' + label + '</span>'; b.onclick = fn; return b;
+}
+// Một dãy ô đánh vần; trả về các ô để tô sáng khi bạn máy đọc
+function spellRow(steps, label) {
+  const row = el('div', { class: 'spell' }, label ? el('span', { class: 'splab', text: label }) : null), chips = [];
+  steps.forEach(s => {
+    if (s.arrow) row.append(el('span', { class: 'arr', 'aria-hidden': 'true', text: '→' }));
+    const b = el('button', { class: 'sp' + (s.res ? ' res' : '') + (s.tone ? ' tone' : ''), 'aria-label': s.say, onclick: () => speakWord(s.say) }, s.show);
+    row.append(b); chips.push(b);
+  });
+  return { row, chips };
+}
+const unitTitle = u => isTone(u) ? 'dấu ' + u : u;
+// Bài có những gì: âm, vần, dấu thanh (để lời giới thiệu và tên mục nói đúng nội dung bài)
+function unitWhat(units) { const k = units.map(kindOf), out = []; if (k.includes('Âm')) out.push('âm'); if (k.includes('Vần')) out.push('vần'); const d = k.includes('Dấu thanh'); const t = out.join(', '); return d ? (t ? t + ' và dấu thanh' : 'dấu thanh') : t; }
+function unitsCard(n, units) {
+  const rev = !lessonOf(n).u.length;
+  const W_ = unitWhat(units) || 'âm, vần', W2 = W_.charAt(0).toUpperCase() + W_.slice(1);
+  const card = el('div', { class: 'card' }, secHead(1, (rev ? 'Ôn ' : 'Đọc ') + W_, 'Em chạm vào ô để nghe.' + (units.some(u => kindOf(u) === 'Vần') ? ' Bấm “Đánh vần” để nghe bạn máy đánh vần mẫu.' : '')));
+  const grid = el('div', { class: 'units' });
+  const all = [];
+  units.forEach(u => {
+    const kind = kindOf(u), big = el('button', { class: 'ubig', 'aria-label': kind + ' ' + unitTitle(u), onclick: () => speakWord(isTone(u) ? 'dấu ' + u : UNIT_NAME[u] || (kind === 'Âm' ? SOUND[u] : u) || u) }, isTone(u) ? TONE_SHOW[u] : u);
+    const name = isTone(u) ? 'dấu ' + u : kind === 'Âm' ? 'đọc là “' + (UNIT_NAME[u] || SOUND[u] || u) + '”' : 'vần ' + u;
+    const uc = el('div', { class: 'ucard' }, el('div', { class: 'uhead' }, big, el('div', { class: 'ukind' }, el('b', { text: kind }), name)));
+    let segs = [], chips = [];
+    const us = unitSteps(u);
+    if (kind === 'Vần') { const r = spellRow(us, 'Đánh vần vần'); uc.append(r.row); chips = chips.concat(r.chips); }
+    else chips.push(big);
+    segs = segs.concat(us.map(s => ({ text: s.say, gap: 500 })));
+    const mp = modelFor(u, n), ts = mp && tiengSteps(mp);
+    if (ts) { if (segs.length) segs[segs.length - 1].gap = 900; const r = spellRow(ts, 'Tiếng mẫu: ' + mp.word); uc.append(r.row); chips = chips.concat(r.chips); segs = segs.concat(ts.map(s => ({ text: s.say, gap: 500 }))); }
+    const hl = i => chips.forEach((c, k) => c.classList.toggle('hl', k === i));
+    const play = () => speak('', { segs, rate: wordRate(), onSeg: i => hl(i) });
+    all.push(play);
+    uc.append(el('div', { class: 'sayrow' }, listenBtn('Đánh vần', play)));
+    grid.append(uc);
+  });
+  card.append(grid);
+  if (!units.length) card.append(el('div', { class: 'note', text: 'Bài này em luyện viết và đọc lại các chữ đã học.' }));
+  return card;
+}
+
+function talkRow() {
+  const may = el('div', { class: 'may' }); may.innerHTML = maySVG(76);
+  const bub = el('div', { class: 'bubble', id: 'bub', 'aria-live': 'polite' });
+  const lis = el('button', { class: 'listen', 'aria-label': 'Nghe bạn máy nói lại', onclick: () => cue([bub.textContent]) }); lis.innerHTML = speakerIcon;
+  return el('div', { class: 'talk' }, may, bub, lis);
+}
+function pathCard() {
+  const cur = ST.upto || 0;
+  const pb = el('button', { class: 'pathbtn', onclick: () => go('lessons') },
+    el('span', { class: 'em', text: '📚' }),
+    el('div', null, el('b', { text: 'Chọn bài học' }), el('span', { class: 's', text: cur ? 'Em đang học đến Bài ' + cur : 'Em học đến bài nào rồi?' })),
+    el('span', { class: 'go', 'aria-hidden': 'true', text: '›' }));
+  if (!cur) return pb;
+  return el('div', { class: 'stack' }, pb, el('button', { class: 'big', text: 'Vào Bài ' + cur + ' ›', onclick: () => { CUR = cur; go('lesson'); } }));
+}
+function chooseLesson(n) { ST.upto = n; save(); CUR = n; WSHOW = []; go('lesson'); }
+
+// ---------- Lưới chọn bài ----------
+function lessonCell(n, cur) {
+  const L = lessonOf(n), rev = !L.u.length, story = !!STORIES[n];
+  const got = (story ? (ST.best[n] || 0) : 0) + (ST.qbest[n] || 0);
+  const b = el('button', { class: 'lcell' + (n === cur ? ' cur' : n < cur ? ' past' : '') + (rev ? ' rev' : ''), 'aria-pressed': String(n === cur),
+    'aria-label': 'Bài ' + n + ': ' + lessonLabel(n) + (story ? ', có truyện' : '') + (n === cur ? ', em đang học đến bài này' : ''), onclick: () => chooseLesson(n) },
+    el('span', { class: 'n', text: String(n) }), el('span', { class: 't', text: lessonLabel(n) }));
+  if (got) b.append(el('span', { class: 'got', text: '⭐' + got }));
+  return b;
+}
+function lessonsView(m) {
+  const cur = ST.upto || 0, weeks = el('div', { class: 'weeks' });
+  for (let s0 = 1; s0 <= 80; s0 += 5) {
+    const row = el('div', { class: 'row5' });
+    for (let n = s0; n < s0 + 5; n++) row.append(lessonCell(n, cur));
+    weeks.append(el('div', { class: 'wk' }, el('div', { class: 'weeklab', text: 'Bài ' + s0 + '–' + (s0 + 4) }), row));
+  }
+  m.append(el('div', { class: 'stack' }, talkRow(), el('div', { class: 'card' }, weeks)));
+  setBub(cur ? 'Em đang học đến Bài ' + cur + '. Em chạm vào số bài khác nếu muốn đổi nhé!' : 'Em đã học đến bài nào rồi? Em chạm vào số bài nhé!');
+  if (cur) { const c = document.querySelector('.lcell.cur'); if (c) setTimeout(() => { try { c.scrollIntoView({ block: 'center' }); } catch (e) {} }, 60); }
+}
+
+// ---------- Trang một bài ----------
+const act = (em, title, sub, fn, off, got, mx) => {
+  const b = el('button', { class: 'act', onclick: fn, disabled: !!off }, el('span', { class: 'em', text: em }), el('b', { text: title }), el('small', { text: sub }));
+  if (mx) b.append(el('span', { class: 'actstars', 'aria-label': got + ' trên ' + mx + ' sao' }, '⭐'.repeat(got) + '☆'.repeat(Math.max(0, mx - got)), el('i', { text: got + '/' + mx })));
+  return b;
+};
+function lessonView(m) {
+  const n = CUR || ST.upto || 1; CUR = n;
+  const Ls = lessonOf(n), rev = !Ls.u.length;
+  if (WN !== n || !WSHOW.length) { WSHOW = pickShow(n); WN = n; }
+  const chips = el('div', { class: 'chips' });
+  (rev ? reviewUnits(n) : Ls.u).forEach(u => chips.append(el('span', { class: 'chip', text: unitLabel(u) })));
+  const head = el('div', { class: 'card stack' },
+    el('h2', { class: 'sec', style: 'margin:0', text: 'Bài ' + n + ' · ' + (rev ? lessonLabel(n) : Ls.t) }),
+    el('div', { class: 'small', text: rev ? 'Em ôn lại các chữ đã học ở các bài trước' : 'Chữ của bài hôm nay' }), chips);
+
+  const marks = rev ? [] : Ls.u.filter(u => !isTone(u));
+  const unitCard = unitsCard(n, rev ? reviewUnits(n) : Ls.u);
+
+  // Phần 2: đọc tiếng
+  const grid = el('div', { class: 'wgrid' });
+  const cards = WSHOW.map(x => { const b = el('button', { class: 'wcard', 'aria-label': x.w, onclick: () => speakWord(x.w) }, markWord(x.w, marks)); grid.append(b); return b; });
+  const hl = i => cards.forEach((c, k) => c.classList.toggle('hl', k === i));
+  const listenAll = listenBtn('Nghe tất cả', () => speak('', { segs: WSHOW.map(x => ({ text: x.w, gap: 600 })), rate: wordRate(), onSeg: i => hl(i) }));
+  const wordsCard = el('div', { class: 'card' }, secHead(2, 'Đọc tiếng', 'Em chạm vào từng tiếng để nghe, rồi đọc to theo.'), grid, el('div', { class: 'sayrow' }, listenAll));
+  if (wordPool(n).length > 12) wordsCard.querySelector('.sayrow').append(el('button', { class: 'btn', text: '🔄 Đổi tiếng khác', onclick: () => { stopSpeak(); WSHOW = pickShow(n); render(); } }));
+
+  // Phần 3: đọc từ
+  if (TN !== n || !TSHOW.length) { TSHOW = pickWords(n); TN = n; }
+  const tuCard = el('div', { class: 'card' }, secHead(3, 'Đọc từ', 'Mỗi từ có hai tiếng trở lên. Em đọc từng tiếng, rồi đọc liền cả từ.'));
+  if (!TSHOW.length) tuCard.append(el('div', { class: 'note', text: 'Bài này em mới học chữ đầu tiên. Học thêm vài chữ nữa là em đọc được từ nhé!' }));
+  else {
+    const tg = el('div', { class: 'wgrid words' });
+    const tcards = TSHOW.map(x => { const b = el('button', { class: 'wcard', 'aria-label': x.w, onclick: () => speakWord(x.w) }, x.em ? el('span', { class: 'wem', 'aria-hidden': 'true', text: x.em }) : null, markWord(x.w, marks)); tg.append(b); return b; });
+    const thl = i => tcards.forEach((c, k) => c.classList.toggle('hl', k === i));
+    const row = el('div', { class: 'sayrow' }, listenBtn('Nghe tất cả', () => speak('', { segs: TSHOW.map(x => ({ text: x.w, gap: 800 })), rate: wordRate(), onSeg: i => thl(i) })));
+    if (wordsPool(n).length > TSHOW.length) row.append(el('button', { class: 'btn', text: '🔄 Đổi từ khác', onclick: () => { stopSpeak(); TSHOW = pickWords(n); render(); } }));
+    tuCard.append(tg, row);
+  }
+
+  const ok = canQuick(n), acts = el('div', { class: 'acts' });
+  acts.append(act('🔍', 'Tìm tiếng lạ', ok ? 'Tiếng, từ có chữ của bài · 5 vòng' : 'Em học thêm vài bài nữa nhé', () => startQuick(n), !ok, ST.qbest[n] || 0, ok ? 5 : 0));
+  if (STORIES[n]) acts.append(act(storyEmoji(n), 'Truyện: ' + STORIES[n].title, 'Đọc truyện · 3 mức · trả lời câu hỏi', () => startPlay(n), false, Math.min(ST.best[n] || 0, MAXSTAR(n)), MAXSTAR(n)));
+  else acts.append(act('🔒', 'Truyện của bài', 'Truyện có từ Bài 4', null, true));
+  const actCard = el('div', { class: 'card' }, secHead(4, 'Tìm tiếng lạ và đọc truyện', 'Tiếng, từ và truyện đều có âm, vần của bài này.'), acts);
+
+  const nav = el('div', { class: 'nav between' },
+    n > 1 ? el('button', { class: 'big alt', text: '‹ Bài trước', onclick: () => chooseLesson(n - 1) }) : el('span'),
+    el('button', { class: 'big alt', text: 'Chọn bài khác', onclick: () => go('lessons') }),
+    n < 80 ? el('button', { class: 'big', text: 'Bài sau ›', onclick: () => chooseLesson(n + 1) }) : el('span'));
+  m.append(el('div', { class: 'stack' }, talkRow(), head, unitCard, wordsCard, tuCard, actCard, nav));
+  // Lời giới thiệu đúng với nội dung bài: chỉ nhắc âm, vần, dấu thanh, tiếng, từ mà bài này thực sự có
+  const what = unitWhat(rev ? reviewUnits(n) : Ls.u), more = [];
+  if (WSHOW.length) more.push('đọc tiếng'); if (TSHOW.length) more.push('đọc từ');
+  const plan = (what ? (rev ? 'ôn ' : 'đọc ') + what : 'ôn các chữ đã học') + (more.length ? ', rồi ' + more.join(' và ') : '');
+  setBub(rev ? 'Bài ' + n + ' là bài ôn tập. Mình cùng ' + plan + ' nhé!' : 'Em học đến Bài ' + n + '. Mình cùng ' + plan + ' nhé!');
+}
+
+// ---------- Thám tử chữ nhanh: tự tạo từ kho tiếng, dùng cho mọi bài ----------
+// Mỗi bài: 3 vòng tìm tiếng lạ trong các tiếng có âm, vần của bài; 2 vòng tìm từ lạ trong các từ của bài.
+// Tiếng lạ được chọn sao cho trông giống các tiếng đã học (cùng âm đầu hoặc vần gần giống), để em phải nhìn kĩ.
+function makeRounds(n) {
+  const L = lessonOf(n), all = L.u.length ? L.u : reviewUnits(n);
+  const units = all.filter(u => !isTone(u)), tones = all.filter(isTone);
+  const P = w => parseSyllable(w);
+  const has = w => { const p = P(w); return !!p && (units.includes(p.onset) || units.includes(p.rime) || tones.includes(p.tone)); };
+  const known = BANK.filter(x => x.max <= n), odd = BANK.filter(x => x.max > n);
+  if (known.length < 3 || !odd.length) return null;
+  const focus = known.filter(x => has(x.w));
+  const sim = (a, b) => { const pa = P(a), pb = P(b); if (!pa || !pb) return 0; return (pa.onset && pa.onset === pb.onset ? 2 : 0) + (pa.rime[0] === pb.rime[0] ? 2 : 0) + (pa.rime.startsWith(pb.rime) || pb.rime.startsWith(pa.rime) ? 1 : 0); };
+  const pickOdd = (cands, tiles, used) => {
+    let c = cands.filter(x => !used.has(x.w)); if (!c.length) c = cands;
+    const near = c.filter(x => x.max <= n + 12); if (near.length >= 3) c = near;
+    const scored = shuffle(c).map(x => ({ x, s: Math.max(...tiles.map(t => sim(x.w.split(' ')[0], t.split(' ')[0]))) + (x.max <= n + 6 ? 1 : 0) }));
+    scored.sort((p, q) => q.s - p.s);
+    return scored[Math.floor(Math.random() * Math.min(4, scored.length))].x;
+  };
+  const used = new Set(), rounds = [];
+  const tiengRound = () => {
+    const f = shuffle(focus.filter(x => !used.has(x.w))), rest = shuffle(known.filter(x => !used.has(x.w) && !f.includes(x)));
+    let pick = f.concat(rest).slice(0, Math.min(3, known.length));
+    if (pick.length < 3) pick = shuffle(known).slice(0, 3);
+    pick.forEach(x => used.add(x.w));
+    const o = pickOdd(odd, pick.map(x => x.w), used); used.add(o.w);
+    return { kind: 'tiếng', odd: o.w, tiles: shuffle([...pick.map(x => ({ w: x.w, bad: false })), { w: o.w, bad: true }]) };
+  };
+  const wpool = typeof wordsPool === 'function' ? wordsPool(n) : [], wodd = WORDS.filter(x => x.max > n);
+  const tuRound = () => {
+    const fresh = wpool.filter(x => !used.has(x.w));
+    const pick = shuffle(fresh.filter(x => x.max === n)).concat(shuffle(fresh.filter(x => x.max !== n))).slice(0, 3);
+    pick.forEach(x => used.add(x.w));
+    const o = pickOdd(wodd, pick.map(x => x.w), used); used.add(o.w);
+    return { kind: 'từ', odd: o.w, tiles: shuffle([...pick.map(x => ({ w: x.w, bad: false })), { w: o.w, bad: true }]) };
+  };
+  for (let r = 0; r < 5; r++) {
+    const wantTu = r >= 3 && wodd.length && wpool.filter(x => !used.has(x.w)).length >= 3;
+    rounds.push(wantTu ? tuRound() : tiengRound());
+  }
+  return rounds;
+}
+// Vì sao tiếng (hoặc từ) là lạ
+function oddWhy(rd, n) {
+  if (rd.kind !== 'từ') return 'có ' + whyBad(checkSyllable(rd.odd, n), n);
+  const bad = rd.odd.split(' ').find(sy => !checkSyllable(sy, n).ok);
+  return 'có tiếng “' + bad + '”, tiếng này có ' + whyBad(checkSyllable(bad, n), n);
+}
+function startQuick(n) { const rounds = makeRounds(n); if (!rounds) return; Q = { n, rounds, i: 0, stars: 0, tries: 0, solved: false }; go('quick'); }
+function quickView(m) {
+  const n = Q.n, rd = Q.rounds[Q.i], last = Q.i >= Q.rounds.length - 1;
+  const dots = el('ol', { class: 'qdots', 'aria-label': 'Vòng ' + (Q.i + 1) + ' trên ' + Q.rounds.length });
+  Q.rounds.forEach((_, i) => dots.append(el('li', { class: i < Q.i ? 'ok' : i === Q.i ? 'cur' : '', text: i < Q.i ? '✓' : String(i + 1) })));
+  const msg = el('div', { class: 'msg', 'aria-live': 'polite' }), whys = el('div', { class: 'whys' });
+  const nb = nextBtn(last ? 'Xem sao của em ›' : 'Vòng tiếp theo ›', () => { if (last) finishQuick(); else { Q.i++; Q.tries = 0; Q.solved = false; stopSpeak(); render(); } }, false);
+  const K = rd.kind, KC = cap(K);
+  const tiles = el('div', { class: 'qtiles', role: 'group', 'aria-label': 'Chọn ' + K + ' lạ' });
+  const btns = rd.tiles.map(t => { const b = el('button', { class: 'qt' + (K === 'từ' ? ' word' : ''), text: t.w }); tiles.append(b); return b; });
+  const listen = listenBtn('Nghe các ' + K, () => speak('', { segs: rd.tiles.map(t => ({ text: t.w, gap: 700 })), rate: wordRate(), onSeg: i => btns.forEach((b, k) => b.classList.toggle('hl', k === i)) }));
+  const settle = reveal => {
+    Q.solved = true; if (!reveal && Q.tries === 0) Q.stars++;
+    msg.textContent = '';
+    btns.forEach((b, k) => { b.disabled = true; if (rd.tiles[k].bad) { b.classList.remove('no'); b.classList.add(reveal ? 'reveal' : 'ok'); } });
+    whys.append(el('div', { class: 'why' }, el('b', { text: rd.odd }), oddWhy(rd, n)));
+    nb.disabled = false; nb.classList.add('pop'); chime(!reveal);
+    setBub(reveal ? 'Bạn máy chỉ cho em ' + K + ' lạ nhé. ' + KC + ' “' + rd.odd + '” có chữ em chưa học.' : 'Đúng rồi! ' + KC + ' “' + rd.odd + '” là ' + K + ' lạ.');
+  };
+  btns.forEach((b, k) => {
+    b.onclick = () => {
+      if (Q.solved) return;
+      const t = rd.tiles[k];
+      if (t.bad) return settle(false);
+      Q.tries++; b.disabled = true; b.classList.add('no', 'shake'); setTimeout(() => b.classList.remove('shake'), 500); chime(false);
+      if (Q.tries >= 2) return settle(true);
+      const txt = KC + ' “' + t.w + '” em đã học rồi. Em tìm ' + K + ' lạ khác nhé.'; msg.textContent = txt; cue([txt]);
+    };
+  });
+  m.append(el('div', { class: 'stack' }, dots, talkRow(), el('div', { class: 'card' }, tiles, el('div', { class: 'sayrow', style: 'justify-content:center' }, listen), msg, whys, el('div', { class: 'nav' }, nb))));
+  const UL = lessonUnits(n).map(unitLabel).join(', ');
+  setBub('Vòng ' + (Q.i + 1) + '. ' + (UL ? 'Bài ' + n + ': ' + UL + '. ' : '') + KC + ' nào có chữ em chưa học? Chạm vào ' + K + ' lạ nhé!');
+}
+function finishQuick() {
+  const n = Q.n, mx = Q.rounds.length, tot = Q.stars;
+  ST.qbest[n] = Math.max(ST.qbest[n] || 0, tot); save();
+  LAST = { mx, tot, rows: ['🔍 Tìm tiếng lạ, từ lạ: ' + tot + '/' + mx + ' sao'], note: 'Em nhớ nhé: tiếng lạ là tiếng có chữ em chưa học!',
+    primary: ['Về bài học', () => { CUR = n; go('lesson'); }], again: () => startQuick(n) };
+  go('done');
+}
+
+// ---------- Kết thúc truyện và màn kết quả chung ----------
+function finishRun() {
+  const sid = R.sid, from = R.from, mx = MAXSTAR(sid), tot = Math.min(R.readStar + R.qStar, mx);
+  ST.best[sid] = Math.max(Math.min(ST.best[sid] || 0, mx), tot); save();
+  LAST = { mx, tot, rows: ['📖 Đọc truyện: ' + R.readStar + ' sao', '❓ Trả lời câu hỏi: ' + R.qStar + ' sao'],
+    note: 'Em nhớ nhé: đọc chậm, rõ từng tiếng, nghỉ hơi ở dấu chấm!',
+    medals: [['🏅', 'Bạn đọc giỏi'], ['🥈', 'Bạn đọc chăm'], ['📖', 'Bạn đọc tập sự']],
+    primary: from === 'lesson' ? ['Về bài học', () => go('lesson')] : ['Về trang chủ', () => go('home')],
+    again: () => { startPlay(sid); R.from = from; } };
+  go('done');
+}
+function doneView(m) {
+  const D = LAST, mx = D.mx, tot = Math.min(D.tot, mx);
+  const MD = D.medals || [['🏅', 'Thám tử vàng'], ['🥈', 'Thám tử bạc'], ['🔍', 'Thám tử tập sự']];
+  const medal = tot >= mx ? MD[0] : tot >= mx * 0.6 ? MD[1] : MD[2];
+  const msg = (ST.name ? ST.name + ' ơi, ' : '') + 'em được ' + tot + ' sao. Em là ' + medal[1].toLowerCase() + '!';
+  const may = el('div'); may.innerHTML = maySVG(120);
+  m.append(el('div', { class: 'card done pop' },
+    may, el('div', { class: 'big-stars', 'aria-label': tot + ' sao', text: '⭐'.repeat(tot) + '☆'.repeat(mx - tot) }),
+    el('h2', { text: medal[0] + ' ' + medal[1] }),
+    el('div', { class: 'rows' }, D.rows.map(t => el('span', { text: t }))),
+    el('div', { class: 'note', text: D.note }),
+    el('div', { class: 'nav', style: 'justify-content:center' }, nextBtn(D.primary[0], D.primary[1]), el('button', { class: 'big alt', text: 'Chơi lại', onclick: D.again }))));
+  setTimeout(() => { if (view === 'done') cue([msg, D.note]); }, 300);
+}
+
+
+render();
+})();
+</script>
+</body>
+</html>
